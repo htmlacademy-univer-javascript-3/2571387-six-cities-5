@@ -2,9 +2,15 @@
 import React from 'react';
 import MainPage from '../../pages/Main/main';
 
-const App: React.FC = () => (
+// Интерфейс для пропсов компонента App
+interface AppProps {
+  offersCount: number;
+}
+
+const App: React.FC<AppProps> = ({ offersCount }) => (
   <div>
-    <MainPage />
+    {/* Передаем данные из App в MainPage */}
+    <MainPage offersCount={offersCount} />
   </div>
 );
 

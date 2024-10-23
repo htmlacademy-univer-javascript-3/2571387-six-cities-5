@@ -1,4 +1,3 @@
-// src/components/App/app.tsx
 import React from 'react';
 import MainPage from '../../pages/Main/main';
 

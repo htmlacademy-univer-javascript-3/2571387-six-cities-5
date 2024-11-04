@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './components/App/app';
+import {App} from './components/App/app';
 
 // Описываем данные для компонента главной страницы
 const offersCount = 312; // Количество предложений для аренды

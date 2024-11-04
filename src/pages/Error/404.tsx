@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 function Error404(): JSX.Element {
   return (
     <div>
-          404 Not Found
-       <Link to="/" className="link_not_found">Go back to Home</Link>
+      404 Not Found
+      <Link to="/" className="link_not_found">Go back to Home</Link>
     </div>
   );
 }

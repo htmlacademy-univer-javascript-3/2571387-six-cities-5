@@ -1,28 +1,11 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import MainPage from '../../pages/Main/main';
-import {Login} from '../../pages/Login/login';
-import {Offer} from '../../pages/Offer/offer';
-import {Favorites} from '../../pages/Favorites/favorites';
-import Error404 from '../../pages/Error/404';
-import CheckAuth from '../../pages/CheckAuth/CheckAuth';
+import { Main } from '../../pages/Main/main';
+import { City, offerCard } from '../../types';
 
-// Интерфейс для пропсов компонента App
-interface AppProps {
-  offersCount: number;
+interface IAppProps {
+  offers: offerCard[];
+  currentCity: City;
 }
 
-export const App: React.FC<AppProps> = ({ offersCount }) => (
-  <BrowserRouter>
-    <Routes>
-      {/* Передаем данные из App в MainPage */}
-      <Route path="/" element={<MainPage offersCount={offersCount} />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/favorites" element={<CheckAuth element={<Favorites />} isAuthorized={false}></CheckAuth>} />
-      <Route path="/offer/:id" element={<Offer />} />
-      <Route path="/*" element={<Error404 />} />
-    </Routes>
-  </BrowserRouter>
+export const App: React.FC<IAppProps> = ({ offers, currentCity }) => (
+  <Main offers={offers} currentCity={currentCity} />
 );
-
-//export default App;

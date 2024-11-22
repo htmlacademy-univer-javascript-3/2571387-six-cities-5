@@ -7,6 +7,7 @@ type FavoritesProps = {
 }
 
 export const Favorites: React.FC<FavoritesProps> = ({
+  // eslint-disable-next-line react/prop-types
   offers
 }) => (
   <div className="page">

@@ -3,13 +3,13 @@ import { offerCard, AppRoute } from '../../types';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-type CardProps = {
+type CityCardProps = {
   offer: offerCard;
 };
 
 const ACTIVE_MARK_BUTTON_CLASS = 'place-card__bookmark-button--active';
 
-export const CityCard: React.FC<CardProps> = ({offer}) => {
+export const CityCard: React.FC<CityCardProps> = ({offer}) => {
   const [ isActiveCard, setActiveCard ] = useState(false);
 
   return (

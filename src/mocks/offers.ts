@@ -1,6 +1,10 @@
-import { offerCard, City } from '../types';
+import { offerCard, CityData } from '../types';
 
-export const CITY: City = 'Amsterdam';
+export const CITY: CityData = {
+  title: 'Amsterdam',
+  lng: 4.9041,
+  lat: 52.3676,
+};
 
 export const OFFERS_CARDS: offerCard[] = [
   {
@@ -12,6 +16,8 @@ export const OFFERS_CARDS: offerCard[] = [
     name: 'Test1',
     type: 'Apartament',
     inMarks: true,
+    lat: 52.3909553943508,
+    lng: 4.85309666406198,
   }, {
     id: 2,
     img: 'img/appartment-02.jpg',
@@ -20,6 +26,8 @@ export const OFFERS_CARDS: offerCard[] = [
     name: 'Test2',
     type: 'Apartament',
     inMarks: false,
+    lat: 52.3609553943508,
+    lng: 4.85309666406198,
   }, {
     id: 3,
     img: 'img/appartment-03.jpg',
@@ -28,6 +36,8 @@ export const OFFERS_CARDS: offerCard[] = [
     name: 'Test3',
     type: 'Room',
     inMarks: false,
+    lat: 52.3909553943508,
+    lng: 4.929309666406198,
   }, {
     id: 3,
     img: 'img/appartment-03.jpg',
@@ -36,5 +46,7 @@ export const OFFERS_CARDS: offerCard[] = [
     name: 'Test4',
     type: 'Apartament',
     inMarks: true,
+    lat: 52.3809553943508,
+    lng: 4.939309666406198,
   }
 ];

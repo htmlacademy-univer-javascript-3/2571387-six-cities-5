@@ -6,7 +6,7 @@ import { Login } from './pages/Login/login';
 import { Favorites } from './pages/Favorites/favorites';
 import { Offer } from './pages/Offer/offer';
 import Error404 from './pages/Error/404';
-import { PrivateRoute } from './components/private-router/Private-router';
+import { PrivateRoute } from './components/private-router/PrivateRouter';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { OFFERS_CARDS, CITY } from './mocks/offers';
 

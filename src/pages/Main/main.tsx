@@ -3,15 +3,15 @@ import { offerCard, City, AppRoute } from '../../types';
 import { ListOffers } from '../../components/list-offers/ListOffers';
 import { useNavigate } from 'react-router-dom';
 
-export type MainPage = {
+type MainProps = {
   offers: offerCard[];
   currentCity: City;
 };
 
-export const Main: React.FC<MainPage> = ({
+export const Main: React.FC<MainProps> = ({
   offers,
   currentCity
-}:MainPage) => {
+}:MainProps) => {
   const navigate = useNavigate();
 
   return (

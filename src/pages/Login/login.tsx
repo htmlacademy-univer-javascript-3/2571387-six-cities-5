@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../types';
 
 export const Login: React.FC = () =>(
   <div className="page page--gray page--login">
@@ -6,9 +8,11 @@ export const Login: React.FC = () =>(
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <a className="header__logo-link" href="main.html">
-              <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-            </a>
+            <Link to={AppRoute.Main}>
+              <a className="header__logo-link" href="main.html">
+                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
+              </a>
+            </Link>
           </div>
         </div>
       </div>

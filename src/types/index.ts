@@ -5,6 +5,12 @@ export type City = 'Paris'
   | 'Hamburg'
   | 'Dusseldorf';
 
+export type CityData = {
+  title: City;
+  lat: number;
+  lng: number;
+}
+
 export type offerCard = {
   id: number;
   img: string;
@@ -14,6 +20,8 @@ export type offerCard = {
   name: string;
   type: string;
   inMarks: boolean;
+  lat: number;
+  lng: number;
 };
 
 export enum AuthorizationStatus {

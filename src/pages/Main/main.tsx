@@ -1,11 +1,12 @@
 import React from 'react';
-import { offerCard, City, AppRoute } from '../../types';
+import { offerCard, CityData, AppRoute } from '../../types';
 import { ListOffers } from '../../components/list-offers/ListOffers';
 import { useNavigate } from 'react-router-dom';
+import { Map } from '../../components/map/Map';
 
 type MainProps = {
   offers: offerCard[];
-  currentCity: City;
+  currentCity: CityData;
 };
 
 export const Main: React.FC<MainProps> = ({
@@ -100,7 +101,7 @@ export const Main: React.FC<MainProps> = ({
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">
-                {offers.length} places to stay in {currentCity}
+                {offers.length} places to stay in {currentCity.title}
               </b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
@@ -133,7 +134,9 @@ export const Main: React.FC<MainProps> = ({
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+                <Map currentCity={currentCity} offers={offers} />
+              </section>
             </div>
           </div>
         </div>

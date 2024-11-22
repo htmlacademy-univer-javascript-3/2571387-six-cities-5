@@ -5,15 +5,19 @@ import { Link } from 'react-router-dom';
 
 type CityCardProps = {
   offer: offerCard;
+  cardClassName: string;
 };
 
 const ACTIVE_MARK_BUTTON_CLASS = 'place-card__bookmark-button--active';
 
-export const CityCard: React.FC<CityCardProps> = ({offer}) => {
+export const CityCard: React.FC<CityCardProps> = ({
+  offer,
+  cardClassName,
+}) => {
   const [ isActiveCard, setActiveCard ] = useState(false);
 
   return (
-    <article className="cities__card place-card" onMouseOver={() =>
+    <article className={`${cardClassName} place-card`} onMouseOver={() =>
       setActiveCard(!isActiveCard)}
     >
       {offer.category && (

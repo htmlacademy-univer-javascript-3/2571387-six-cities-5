@@ -1,5 +1,5 @@
 import React from 'react';
-import { offerCard } from '../../types';
+import { offerCard, CardClassNameList } from '../../types';
 import { CityCard } from '../card/Card';
 
 type ListOffersProps = {
@@ -7,7 +7,8 @@ type ListOffersProps = {
 }
 
 export const ListOffers: React.FC<ListOffersProps> = ({
-  offers
+  offers,
+  cardClassName,
 }) => (
-  offers.map((offer: offerCard) => <CityCard key={offer.id} offer={offer} />)
+  offers.map((offer: offerCard) => <CityCard key={offer.id} offer={offer} cardClassName={cardClassName} />)
 );

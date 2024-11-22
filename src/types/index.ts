@@ -36,3 +36,22 @@ export enum AppRoute {
   Main = '/',
   Offer = '/offer/:id',
 }
+
+type User = {
+  name: string;
+  avatar: string;
+}
+
+export type TReview = {
+  id: number;
+  user: User;
+  rating: number;
+  text: string;
+  date: Date;
+}
+
+export const enum CardClassNameList {
+  citiesList = 'cities__card',
+  neardPlace = 'near-places__card',
+  favoritePlace = 'favorites__card',
+}

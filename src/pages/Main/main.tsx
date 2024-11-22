@@ -3,6 +3,7 @@ import { offerCard, CityData, AppRoute } from '../../types';
 import { ListOffers } from '../../components/list-offers/ListOffers';
 import { useNavigate } from 'react-router-dom';
 import { Map } from '../../components/map/Map';
+import { CardClassNameList } from '../../types';
 
 type MainProps = {
   offers: offerCard[];
@@ -130,7 +131,7 @@ export const Main: React.FC<MainProps> = ({
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <ListOffers offers={offers} />
+                <ListOffers offers={offers} cardClassName={CardClassNameList.citiesList}/>
               </div>
             </section>
             <div className="cities__right-section">

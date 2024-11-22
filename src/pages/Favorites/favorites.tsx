@@ -1,7 +1,7 @@
 import { offerCard } from '../../types';
 import { ListOffers } from '../../components/list-offers/ListOffers';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../types';
+import { AppRoute, CardClassNameList } from '../../types';
 type FavoritesProps = {
   offers: offerCard[];
 }
@@ -54,7 +54,7 @@ export const Favorites: React.FC<FavoritesProps> = ({
         <section className="favorites">
           <h1 className="favorites__title">Saved listing</h1>
           <ul className="favorites__list">
-            <ListOffers offers={offers} />
+            <ListOffers offers={offers} cardClassName={CardClassNameList.favoritePlace} />
             {/* <li className="favorites__locations-items">
               <div className="favorites__locations locations locations--current">
                 <div className="locations__item">

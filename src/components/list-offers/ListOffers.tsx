@@ -4,6 +4,7 @@ import { CityCard } from '../card/Card';
 
 type ListOffersProps = {
   offers: offerCard[];
+  cardClassName: CardClassNameList;
 }
 
 export const ListOffers: React.FC<ListOffersProps> = ({

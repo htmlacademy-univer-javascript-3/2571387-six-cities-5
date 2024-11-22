@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { AppRoute, TReview, offerCard, CityData, CardClassNameList } from '../../types';
 import { FormComments } from '../../components/form-comments/FormComments';
-import {ListReviews} from '../../components/list-offers/ListOffers';
+import {ListReviews} from '../../components/listReviews/ListReviews';
 import { Map } from '../../components/map/Map';
 import { ListOffers } from '../../components/list-offers/ListOffers';
 

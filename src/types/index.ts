@@ -18,19 +18,25 @@ export type CityData = {
 }
 
 export type offerCard = {
-  id: number;
+  id: string;
   previewImage: string;
-  category?: string;
+  isPremium?: boolean;
   price: number;
   rating: number;
-  name: string;
+  title: string;
   type: string;
-  inMarks: boolean;
+  isFavorite: boolean;
   location: {
     latitude: number;
     longitude: number;
   };
+  images: string[];
+  bedrooms: number;
+  maxAdults: number;
   city: CityData;
+  description: string[];
+  goods: string[];
+  host: User;
 };
 
 export enum AuthorizationStatus {
@@ -43,20 +49,21 @@ export enum AppRoute {
   Login = '/login',
   Favorites = '/favorites',
   Main = '/',
-  Offer = '/offer/:id',
+  Offer = '/offer/',
 }
 
 type User = {
   name: string;
-  avatar: string;
+  avatarUrl: string;
+  isPro: boolean;
 }
 
 export type TReview = {
-  id: number;
+  id: string;
   user: User;
   rating: number;
-  text: string;
-  date: Date;
+  comment: string;
+  date: string;
 }
 
 export const enum CardClassNameList {
@@ -79,6 +86,12 @@ export const enum SortName {
 export type AuthData = {
   login: string;
   password: string;
+}
+
+export type ReviewData = {
+  id: string;
+  review: string;
+  rating: number;
 }
 
 export type UserData = {

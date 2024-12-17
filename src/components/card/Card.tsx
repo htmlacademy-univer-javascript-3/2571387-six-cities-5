@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 type CityCardProps = {
   offer: offerCard;
   cardClassName: string;
-  setActiveOffer?: (id: number | null) => void;
+  setActiveOffer?: (id: string | null) => void;
 };
 
 const ACTIVE_MARK_BUTTON_CLASS = 'place-card__bookmark-button--active';
@@ -24,13 +24,13 @@ export const CityCard: React.FC<CityCardProps> = ({
       onMouseLeave={() => setActiveOffer && setActiveOffer(null)}
       onMouseOver={() => setActiveCard(!isActiveCard)}
     >
-      {offer.category && (
+      {offer.isPremium && (
         <div className="place-card__mark">
-          <span>{offer.category}</span>
+          <span>Premium</span>
         </div>
       )}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <Link to={AppRoute.Offer + offer.id}>
           <img
             className="place-card__image"
             src={offer.previewImage}
@@ -38,7 +38,7 @@ export const CityCard: React.FC<CityCardProps> = ({
             height={200}
             alt="Place image"
           />
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -47,7 +47,7 @@ export const CityCard: React.FC<CityCardProps> = ({
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
           <button className={`place-card__bookmark-button button 
-            ${offer.inMarks ? ACTIVE_MARK_BUTTON_CLASS : ''}`}
+            ${offer.isFavorite ? ACTIVE_MARK_BUTTON_CLASS : ''}`}
           type="button"
           >
             <svg className="place-card__bookmark-icon" width={18} height={19}>
@@ -63,8 +63,8 @@ export const CityCard: React.FC<CityCardProps> = ({
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={AppRoute.Offer}>
-            {offer.name}
+          <Link to={AppRoute.Offer + offer.id}>
+            {offer.title}
           </Link>
         </h2>
         <p className="place-card__type">{offer.type}</p>
@@ -72,3 +72,4 @@ export const CityCard: React.FC<CityCardProps> = ({
     </article>
   );
 };
+

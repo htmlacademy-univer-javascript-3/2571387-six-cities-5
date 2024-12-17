@@ -13,7 +13,7 @@ export const Review: React.FC<ReviewProps> = ({
       <div className="reviews__avatar-wrapper user__avatar-wrapper">
         <img
           className="reviews__avatar user__avatar"
-          src={review.user.avatar}
+          src={review.user.avatarUrl}
           width={54}
           height={54}
           alt="Reviews avatar"
@@ -29,10 +29,10 @@ export const Review: React.FC<ReviewProps> = ({
         </div>
       </div>
       <p className="reviews__text">
-        {review.text}
+        {review.comment}
       </p>
       <time className="reviews__time" dateTime="2019-04-24">
-        {review.date.toLocaleDateString('ru-RU', {
+        {new Date(review.date).toLocaleDateString('en-EN', {
           year: 'numeric',
           month: 'long',
         })}

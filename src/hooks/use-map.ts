@@ -51,7 +51,7 @@ export function useMap({mapRef, currentCity}: useMapProps) {
     } else {
       setNewCenter(map, currentCity);
     }
-  }, [mapRef, currentCity]);
+  }, [map, mapRef, currentCity]);
 
   return map;
 }

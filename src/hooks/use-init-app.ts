@@ -7,5 +7,5 @@ export function useInitApp() {
   useEffect(() => {
     dispatch(checkAuthorizationStatus());
     dispatch(fetchOffersAction());
-  }, []);
+  }, [dispatch]);
 }

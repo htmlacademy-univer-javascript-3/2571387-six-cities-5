@@ -4,7 +4,7 @@ import { App } from './components/App/app';
 import { Provider } from 'react-redux';
 import { store } from './store';
 import ErrorMessage from './components/error-message/error-message';
-// import { fetchOffersAction } from './store/api-actions';
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -18,3 +18,5 @@ root.render(
     </Provider>
   </React.StrictMode>
 );
+
+

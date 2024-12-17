@@ -1,3 +1,4 @@
+import { Token } from '../services/token';
 import { store } from '../store';
 
 export type City = 'Paris'
@@ -73,4 +74,17 @@ export const enum SortName {
   lowToHigh = 'lowToHigh',
   highToLow = 'highToLow',
   topRated = 'topRated',
+}
+
+export type AuthData = {
+  login: string;
+  password: string;
+}
+
+export type UserData = {
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
+  email: string;
+  token: Token;
 }

@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { useAppDispatch } from '.';
-import { fetchOffersAction } from '../store/api-actions';
+import { checkAuthorizationStatus, fetchOffersAction } from '../store/api-actions';
 
 export function useInitApp() {
   const dispatch = useAppDispatch();
   useEffect(() => {
+    dispatch(checkAuthorizationStatus());
     dispatch(fetchOffersAction());
   }, []);
 }
-

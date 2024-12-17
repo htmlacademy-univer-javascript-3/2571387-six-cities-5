@@ -1,6 +1,6 @@
 import { useAppSelector } from '../../hooks';
 import { Main } from '../../pages/Main/main';
-import { AppRoute, AuthorizationStatus } from '../../types/index';
+import { AppRoute} from '../../types/index';
 import { Login } from '../../pages/Login/login';
 import { Favorites } from '../../pages/Favorites/favorites';
 import { Offer } from '../../pages/Offer/offer';
@@ -23,6 +23,7 @@ export const App: React.FC = () => {
   const currentCity = useAppSelector((state) => state.currentCity);
   const offers = useAppSelector((state) => state.offers);
   const cities = useAppSelector((state) => state.cities);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
   return (
     <BrowserRouter>
@@ -36,7 +37,7 @@ export const App: React.FC = () => {
         <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+            <PrivateRoute authorizationStatus={authorizationStatus}>
               <Favorites offers={offers}/>
             </PrivateRoute>
           }
@@ -57,3 +58,4 @@ export const App: React.FC = () => {
     </BrowserRouter>
   );
 };
+

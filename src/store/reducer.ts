@@ -1,6 +1,6 @@
-import { CityData, offerCard } from '../types';
+import { CityData, offerCard, AuthorizationStatus, UserData } from '../types';
 import { createReducer } from '@reduxjs/toolkit';
-import { changeSelectedCity, fillOffers, setError, setOffersLoadingStatus } from './action';
+import { changeSelectedCity, fillOffers, requireAuthorization, setError, setOffersLoadingStatus, setUserData } from './action';
 import { CITIES } from '../types/cities';
 
 type InitialState = {
@@ -9,6 +9,8 @@ type InitialState = {
   offers: offerCard[];
   offersLoading: boolean;
   error: string | null;
+  authorizationStatus: AuthorizationStatus;
+  userData: UserData | null;
 };
 
 const initialState: InitialState = {
@@ -17,6 +19,8 @@ const initialState: InitialState = {
   offers: [],
   offersLoading: false,
   error: null,
+  authorizationStatus: AuthorizationStatus.UnKnown,
+  userData: null,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -32,6 +36,15 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setError, (state, action) => {
       state.error = action.payload;
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(setUserData, (state, action) => {
+      if (action.payload) {
+        state.userData = action.payload;
+      } else {
+        state.userData = null;
+      }
     });
 });
-

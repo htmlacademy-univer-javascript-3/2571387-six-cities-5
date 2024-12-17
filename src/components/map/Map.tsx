@@ -30,7 +30,6 @@ export const Map: React.FC<MapProps> = ({
 }) => {
   const mapRef = useRef<HTMLDivElement | null>(null);
   const map = useMap({mapRef, currentCity});
-
   useEffect(() => {
     if (map) {
       map.eachLayer((layer) => {
@@ -42,8 +41,8 @@ export const Map: React.FC<MapProps> = ({
       offers.forEach((offer) => {
         leaflet
           .marker({
-            lat: offer.lat,
-            lng: offer.lng,
+            lat: offer.location.latitude,
+            lng: offer.location.longitude,
           }, {
             icon: activeOffer === offer.id ? currentCustomIcon : defaultCustomIcon,
           })

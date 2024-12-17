@@ -15,8 +15,8 @@ const setNewCenter = (
   if (map) {
     map.setView(
       {
-        lat: currentCity.lat,
-        lng: currentCity.lng,
+        lat: currentCity.location.latitude,
+        lng: currentCity.location.longitude,
       },
       ZOOM
     );
@@ -31,8 +31,8 @@ export function useMap({mapRef, currentCity}: useMapProps) {
     if (mapRef.current !== null && !isRenderedRef.current) {
       const instance = leaflet.map(mapRef.current, {
         center: {
-          lat: currentCity.lat,
-          lng: currentCity.lng,
+          lat: currentCity.location.latitude,
+          lng: currentCity.location.longitude,
         },
         zoom: ZOOM,
       });
@@ -55,3 +55,4 @@ export function useMap({mapRef, currentCity}: useMapProps) {
 
   return map;
 }
+

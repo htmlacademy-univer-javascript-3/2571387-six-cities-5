@@ -5,25 +5,31 @@ export type City = 'Paris'
   | 'Brussels'
   | 'Amsterdam'
   | 'Hamburg'
-  | 'Dusseldorf';
+  | 'Dusseldorf'
+  | '';
 
 export type CityData = {
-  title: City;
-  lat: number;
-  lng: number;
+  name: City;
+  location: {
+    latitude: number;
+    longitude: number;
+  };
 }
 
 export type offerCard = {
   id: number;
-  img: string;
+  previewImage: string;
   category?: string;
   price: number;
   rating: number;
   name: string;
   type: string;
   inMarks: boolean;
-  lat: number;
-  lng: number;
+  location: {
+    latitude: number;
+    longitude: number;
+  };
+  city: CityData;
 };
 
 export enum AuthorizationStatus {

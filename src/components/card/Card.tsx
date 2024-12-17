@@ -17,7 +17,6 @@ export const CityCard: React.FC<CityCardProps> = ({
   setActiveOffer,
 }) => {
   const [ isActiveCard, setActiveCard ] = useState(false);
-
   return (
     <article
       className={`${cardClassName} place-card`}
@@ -34,7 +33,7 @@ export const CityCard: React.FC<CityCardProps> = ({
         <a href="#">
           <img
             className="place-card__image"
-            src={offer.img}
+            src={offer.previewImage}
             width={260}
             height={200}
             alt="Place image"

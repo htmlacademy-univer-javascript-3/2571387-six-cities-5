@@ -1,9 +1,9 @@
 .error-message {
     position: fixed;
     top: 50px;
-    margin: 0 auto;
+    right: 150px;
     padding: 20px;
-    background-color: bisque;
+    background-color: #fff;
     color: black;
     border: 3px solid red;
     border-radius: 5px;

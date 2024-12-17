@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { offerCard, CityData, AppRoute, City } from '../../types';
+import { offerCard, CityData, City } from '../../types';
 import { ListOffers } from '../../components/list-offers/ListOffers';
-import { useNavigate } from 'react-router-dom';
 import { Map } from '../../components/map/Map';
 import { CardClassNameList, SortName } from '../../types';
 import { useAppDispatch } from '../../hooks';
@@ -10,6 +9,7 @@ import { ListCities } from '../../components/list-cities/ListCities';
 import { FilterOffer } from '../../components/filter-offers/FilterOffer';
 import { useAppSelector } from '../../hooks';
 import LoadingScreen from '../../components/loader-screen/LoadingScreen';
+import { UserInfoHeader } from '../../components/user-info-header/UserInfoHeader';
 
 type MainProps = {
   offers: offerCard[];
@@ -22,7 +22,6 @@ export const Main: React.FC<MainProps> = ({
   currentCity,
   cities,
 }:MainProps) => {
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const isOfferLoading = useAppSelector((state) => state.offersLoading);
 
@@ -51,47 +50,7 @@ export const Main: React.FC<MainProps> = ({
 
   return (
     <div className="page page--gray page--main">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <div className="header__logo-link header__logo-link--active"
-                onClick={() =>
-                  navigate(AppRoute.Main)}
-              >
-                <img
-                  className="header__logo"
-                  src="img/logo.svg"
-                  alt="6 cities logo"
-                  width={81}
-                  height={41}
-                />
-              </div>
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a
-                    className="header__nav-link header__nav-link--profile"
-                    href="#"
-                  >
-                    <div className="header__avatar-wrapper user__avatar-wrapper" />
-                    <span className="header__user-name user__name">
-                      Oliver.conner@gmail.com
-                    </span>
-                    <span className="header__favorite-count">3</span>
-                  </a>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <UserInfoHeader />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">

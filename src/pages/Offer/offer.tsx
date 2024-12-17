@@ -1,210 +1,201 @@
-import { Link } from 'react-router-dom';
-import { AppRoute, TReview, offerCard, CityData, CardClassNameList } from '../../types';
-import { FormComments } from '../../components/form-comments/FormComments';
-import {ListReviews} from '../../components/listReviews/ListReviews';
+import { Navigate, useParams } from 'react-router-dom';
+import { CardClassNameList, AuthorizationStatus } from '../../types';
+import { commentData, FormComments } from '../../components/form-comments/FormComments';
+import { ListReviews } from '../../components/listReviews/ListReviews';
 import { Map } from '../../components/map/Map';
 import { ListOffers } from '../../components/list-offers/ListOffers';
+import { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchNearOfferAction, fetchOfferAction, fetchReviewAction, postReviewAction } from '../../store/api-actions';
+import { UserInfoHeader } from '../../components/user-info-header/UserInfoHeader';
+import LoadingScreen from '../../components/loader-screen/LoadingScreen';
+import { clearOffer, clearReviews, clearNearOffers } from '../../store/action';
 
-type OfferProps = {
-  reviews: TReview[];
-  offers: offerCard[];
-  currentCity: CityData;
-}
+export const Offer: React.FC = () => {
+  const id = useParams().id;
+  const [activeOffer, setActiveOffer] = useState<string | null>(null);
 
-export const Offer: React.FC<OfferProps> = ({
-  reviews,
-  offers,
-  currentCity,
-}) => (
-  <div className="page">
-    <header className="header">
-      <div className="container">
-        <div className="header__wrapper">
-          <div className="header__left">
-            <Link to={AppRoute.Main}>
-              <img
-                className="header__logo"
-                src="img/logo.svg"
-                alt="6 cities logo"
-                width={81}
-                height={41}
-              />
-            </Link>
-          </div>
-          <nav className="header__nav">
-            <ul className="header__nav-list">
-              <li className="header__nav-item user">
-                <a
-                  className="header__nav-link header__nav-link--profile"
-                  href="#"
-                >
-                  <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                  <span className="header__user-name user__name">
-                    Oliver.conner@gmail.com
-                  </span>
-                  <span className="header__favorite-count">3</span>
-                </a>
-              </li>
-              <li className="header__nav-item">
-                <a className="header__nav-link" href="#">
-                  <span className="header__signout">Sign out</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </div>
-    </header>
-    <main className="page__main page__main--offer">
-      <section className="offer">
-        <div className="offer__gallery-container container">
-          <div className="offer__gallery">
-            <div className="offer__image-wrapper">
-              <img
-                className="offer__image"
-                src="img/room.jpg"
-                alt="Photo studio"
-              />
-            </div>
-            <div className="offer__image-wrapper">
-              <img
-                className="offer__image"
-                src="img/apartment-01.jpg"
-                alt="Photo studio"
-              />
-            </div>
-            <div className="offer__image-wrapper">
-              <img
-                className="offer__image"
-                src="img/apartment-02.jpg"
-                alt="Photo studio"
-              />
-            </div>
-            <div className="offer__image-wrapper">
-              <img
-                className="offer__image"
-                src="img/apartment-03.jpg"
-                alt="Photo studio"
-              />
-            </div>
-            <div className="offer__image-wrapper">
-              <img
-                className="offer__image"
-                src="img/studio-01.jpg"
-                alt="Photo studio"
-              />
-            </div>
-            <div className="offer__image-wrapper">
-              <img
-                className="offer__image"
-                src="img/apartment-01.jpg"
-                alt="Photo studio"
-              />
-            </div>
-          </div>
-        </div>
-        <div className="offer__container container">
-          <div className="offer__wrapper">
-            <div className="offer__mark">
-              <span>Premium</span>
-            </div>
-            <div className="offer__name-wrapper">
-              <h1 className="offer__name">
-                Beautiful &amp; luxurious studio at great location
-              </h1>
-              <button className="offer__bookmark-button button" type="button">
-                <svg className="offer__bookmark-icon" width={31} height={33}>
-                  <use xlinkHref="#icon-bookmark" />
-                </svg>
-                <span className="visually-hidden">To bookmarks</span>
-              </button>
-            </div>
-            <div className="offer__rating rating">
-              <div className="offer__stars rating__stars">
-                <span style={{ width: '80%' }} />
-                <span className="visually-hidden">Rating</span>
-              </div>
-              <span className="offer__rating-value rating__value">4.8</span>
-            </div>
-            <ul className="offer__features">
-              <li className="offer__feature offer__feature--entire">Apartment</li>
-              <li className="offer__feature offer__feature--bedrooms">
-                3 Bedrooms
-              </li>
-              <li className="offer__feature offer__feature--adults">
-                Max 4 adults
-              </li>
-            </ul>
-            <div className="offer__price">
-              <b className="offer__price-value">€120</b>
-              <span className="offer__price-text">&nbsp;night</span>
-            </div>
-            <div className="offer__inside">
-              <h2 className="offer__inside-title">What&apos;s inside</h2>
-              <ul className="offer__inside-list">
-                <li className="offer__inside-item">Wi-Fi</li>
-                <li className="offer__inside-item">Washing machine</li>
-                <li className="offer__inside-item">Towels</li>
-                <li className="offer__inside-item">Heating</li>
-                <li className="offer__inside-item">Coffee machine</li>
-                <li className="offer__inside-item">Baby seat</li>
-                <li className="offer__inside-item">Kitchen</li>
-                <li className="offer__inside-item">Dishwasher</li>
-                <li className="offer__inside-item">Cabel TV</li>
-                <li className="offer__inside-item">Fridge</li>
-              </ul>
-            </div>
-            <div className="offer__host">
-              <h2 className="offer__host-title">Meet the host</h2>
-              <div className="offer__host-user user">
-                <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
-                  <img
-                    className="offer__avatar user__avatar"
-                    src="img/avatar-angelina.jpg"
-                    width={74}
-                    height={74}
-                    alt="Host avatar"
-                  />
-                </div>
-                <span className="offer__user-name">Angelina</span>
-                <span className="offer__user-status">Pro</span>
-              </div>
-              <div className="offer__description">
-                <p className="offer__text">
-                  A quiet cozy and picturesque that hides behind a a river by the
-                  unique lightness of Amsterdam. The building is green and from
-                  18th century.
-                </p>
-                <p className="offer__text">
-                  An independent House, strategically located between Rembrand
-                  Square and National Opera, but where the bustle of the city
-                  comes to rest in this alley flowery and colorful.
-                </p>
-              </div>
-            </div>
-            <section className="offer__reviews reviews">
-              <h2 className="reviews__title">
-              Reviews · <span className="reviews__amount">{reviews.length}</span>
-              </h2>
-              <ListReviews reviews={reviews} />
-              <FormComments />
-            </section>
-          </div>
-        </div>
-        <section className="offer__map map">
-          <Map currentCity={currentCity} offers={offers} />
+  const dispatch = useAppDispatch();
+  const currentCity = useAppSelector((state) => state.currentCity);
+  const isOfferLoading = useAppSelector((state) => state.offerLoading);
+  const offerData = useAppSelector((state) => state.offer);
+  const reviews = useAppSelector((state) => state.reviews);
+  const isReviewsLoading = useAppSelector((state) => state.reviewsLoading);
+  const nearOffers = useAppSelector((state) => state.nearOffers);
+  const isNearOffersLoading = useAppSelector((state) => state.nearOffersLoading);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const error = useAppSelector((state) => state.error);
+
+  const handleSubmit = ({rating, review}: commentData) => {
+    if (id) {
+      dispatch(postReviewAction({id, review, rating}));
+    }
+  };
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchOfferAction(id));
+      setActiveOffer(id);
+    }
+    return () => {
+      dispatch(clearOffer());
+    };
+  }, [dispatch, id]);
+  useEffect(() => {
+    if (id && offerData) {
+      dispatch(fetchReviewAction(id));
+      dispatch(fetchNearOfferAction(id));
+    }
+    return () => {
+      dispatch(clearNearOffers());
+      dispatch(clearReviews());
+    };
+  }, [dispatch, id, offerData]);
+
+  if (error) {
+    return <Navigate to={'/404'} />;
+  }
+
+  return (
+    <div className="page">
+      <UserInfoHeader />
+      <main className="page__main page__main--offer">
+        <section className="offer">
+          {
+            (isOfferLoading || !offerData) ?
+              <LoadingScreen /> :
+              (
+                <>
+                  <div className="offer__gallery-container container">
+                    <div className="offer__gallery">
+                      {
+                        offerData.images.map((image) => (
+                          <div className="offer__image-wrapper" key={image}>
+                            <img
+                              className="offer__image"
+                              src={image}
+                              alt="Photo studio"
+                            />
+                          </div>
+                        )
+                        )
+                      }
+                    </div>
+                  </div>
+                  <div className="offer__container container">
+                    <div className="offer__wrapper">
+                      {
+                        offerData.isPremium && (
+                          <div className="offer__mark">
+                            <span>Premium</span>
+                          </div>
+                        )
+                      }
+                      <div className="offer__name-wrapper">
+                        <h1 className="offer__name">
+                          {offerData.title}
+                        </h1>
+                        <button className="offer__bookmark-button button" type="button">
+                          <svg className="offer__bookmark-icon" width={31} height={33}>
+                            <use xlinkHref="#icon-bookmark" />
+                          </svg>
+                          <span className="visually-hidden">To bookmarks</span> {/* Добавить отображение */}
+                        </button>
+                      </div>
+                      <div className="offer__rating rating">
+                        <div className="offer__stars rating__stars">
+                          <span style={{ width: `${offerData.rating * 20}%`}} />
+                          <span className="visually-hidden">Rating</span>
+                        </div>
+                        <span className="offer__rating-value rating__value">{offerData.rating}</span>
+                      </div>
+                      <ul className="offer__features">
+                        <li className="offer__feature offer__feature--entire">{offerData.type}</li>
+                        <li className="offer__feature offer__feature--bedrooms">
+                          {offerData.bedrooms} Bedrooms
+                        </li>
+                        <li className="offer__feature offer__feature--adults">
+                          Max {offerData.maxAdults} adults
+                        </li>
+                      </ul>
+                      <div className="offer__price">
+                        <b className="offer__price-value">€{offerData.price}</b>
+                        <span className="offer__price-text">&nbsp;night</span>
+                      </div>
+                      <div className="offer__inside">
+                        <h2 className="offer__inside-title">What&apos;s inside</h2>
+                        <ul className="offer__inside-list">
+                          {
+                            offerData.goods.map((good) => (
+                              <li key={good} className="offer__inside-item">{good}</li>
+                            ))
+                          }
+                        </ul>
+                      </div>
+                      <div className="offer__host">
+                        <h2 className="offer__host-title">Meet the host</h2>
+                        <div className="offer__host-user user">
+                          <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
+                            <img
+                              className="offer__avatar user__avatar"
+                              src={offerData.host.avatarUrl}
+                              width={74}
+                              height={74}
+                              alt="Host avatar"
+                            />
+                          </div>
+                          <span className="offer__user-name">{offerData.host.name}</span>
+                          {offerData.host.isPro && <span className="offer__user-status">Pro</span>}
+                        </div>
+                        <div className="offer__description">
+                          {
+                            Array.isArray(offerData.description) ?
+                              offerData.description.map((descript) => (
+                                <p key={descript} className="offer__text">{descript}</p>
+                              )) :
+                              <p className="offer__text">{offerData.description}</p>
+                          }
+                        </div>
+                      </div>
+                      <section className="offer__reviews reviews">
+                        {
+                          (isReviewsLoading || !reviews) ?
+                            <LoadingScreen /> :
+                            <>
+                              <h2 className="reviews__title">
+                                Reviews · <span className="reviews__amount">{reviews.length}</span>
+                              </h2>
+                              <ListReviews reviews={reviews} />
+                            </>
+                        }
+                        { authorizationStatus === AuthorizationStatus.Auth ?
+                          <FormComments handleSubmit={handleSubmit} /> :
+                          null }
+                      </section>
+                    </div>
+                  </div>
+                </>
+              )
+          }
+          <section className="offer__map map">
+            <Map currentCity={offerData ? offerData.city : currentCity} offers={(nearOffers && offerData) ? [ offerData, ...nearOffers] : []} activeOffer={activeOffer} />
+          </section>
         </section>
-      </section>
-      <div className="container">
-        <section className="near-places places">
-          <h2 className="near-places__title">
-            Other places in the neighbourhood
-          </h2>
-          <div className="near-places__list places__list">
-            <ListOffers offers={offers} cardClassName={CardClassNameList.neardPlace}/>
-          </div>
-        </section>
-      </div>
-    </main>
-  </div>
-);
+        <div className="container">
+          <section className="near-places places">
+            <h2 className="near-places__title">
+              Other places in the neighbourhood
+            </h2>
+            <div className="near-places__list places__list">
+              {
+                (isNearOffersLoading || !nearOffers) ?
+                  <LoadingScreen /> :
+                  <ListOffers offers={nearOffers} cardClassName={CardClassNameList.neardPlace} />
+              }
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  );
+};

@@ -1,10 +1,21 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 
 type FormCommentsFields = HTMLInputElement | HTMLTextAreaElement;
 
-export const FormComments: React.FC = () => {
+export type commentData = {
+  rating: number;
+  review: string;
+}
+
+type FormCommentsProps ={
+  handleSubmit: (commentData: commentData) => void;
+}
+
+export const FormComments: React.FC<FormCommentsProps> = ({
+  handleSubmit
+}) => {
   const [commentData, setCommentData] = useState({
-    rating: '',
+    rating: 0,
     review: '',
   });
 
@@ -12,11 +23,17 @@ export const FormComments: React.FC = () => {
     const {name, value } = evt.target;
     setCommentData({
       ...commentData,
-      [name]: value,
+      [name]:  name === 'rating' ? Number(value) : value,
     });
   };
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" onSubmit={
+      (evt: FormEvent) => {
+        evt.preventDefault();
+        handleSubmit(commentData);
+      }
+    }
+    >
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
@@ -112,7 +129,6 @@ export const FormComments: React.FC = () => {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        // defaultValue={""}
         onChange={handleFieldChange}
         value={commentData.review}
       />
@@ -125,7 +141,7 @@ export const FormComments: React.FC = () => {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled
+          disabled={!commentData.rating && !commentData.review}
         >
           Submit
         </button>

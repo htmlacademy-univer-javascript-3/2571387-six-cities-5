@@ -23,13 +23,12 @@ export const Main: React.FC<MainProps> = ({
   cities,
 }:MainProps) => {
   const dispatch = useAppDispatch();
-  const isOfferLoading = useAppSelector((state) => state.offersLoading);
-
+  const isOffersLoading = useAppSelector((state) => state.offersLoading);
   const handleUserSelectCity = (cityName: City) => {
     dispatch(changeSelectedCity(cityName));
   };
 
-  const [activeOffer, setActiveOffer] = useState<number | null>(null);
+  const [activeOffer, setActiveOffer] = useState<string | null>(null);
 
   const [sortType, setSortType] = useState<SortName>(SortName.popular);
   const sortedOffers = offers
@@ -67,7 +66,7 @@ export const Main: React.FC<MainProps> = ({
               </b>
               <FilterOffer currentSort={sortType} onSortChange={setSortType} />
               <div className="cities__places-list places__list tabs__content">
-                { isOfferLoading ?
+                { isOffersLoading ?
                   <LoadingScreen /> :
                   <ListOffers offers={sortedOffers} cardClassName={CardClassNameList.citiesList} setActiveOffer={setActiveOffer} /> }
               </div>

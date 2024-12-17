@@ -7,7 +7,6 @@ import { Offer } from '../../pages/Offer/offer';
 import Error404 from '../../pages/Error/404';
 import { PrivateRoute } from '../../components/private-router/PrivateRouter';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { REVIEWS } from '../../mocks/reviews';
 import { useInitApp } from '../../hooks/use-init-app';
 
 // import { CityData, offerCard } from '../../types';
@@ -47,8 +46,8 @@ export const App: React.FC = () => {
           element={<Login />}
         />
         <Route
-          path={AppRoute.Offer}
-          element={<Offer reviews={REVIEWS} offers={offers} currentCity={currentCity}/>}
+          path={`${AppRoute.Offer}:id`}
+          element={<Offer />}
         />
         <Route
           path='*'

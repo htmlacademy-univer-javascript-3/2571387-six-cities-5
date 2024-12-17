@@ -61,3 +61,10 @@ export const enum CardClassNameList {
 export type State = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;
+
+export const enum SortName {
+  popular = 'popular',
+  lowToHigh = 'lowToHigh',
+  highToLow = 'highToLow',
+  topRated = 'topRated',
+}

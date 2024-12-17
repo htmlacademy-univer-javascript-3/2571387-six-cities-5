@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { useMap } from './use-map';
+import { useMap } from '../../hooks/use-map';
 import { offerCard, CityData } from '../../types';
 import { URL_MARKER_DEFAULT } from '../../types/constant';
 import leaflet from 'leaflet';
@@ -16,6 +16,7 @@ export const Map: React.FC<MapProps> = ({
 }) => {
   const mapRef = useRef<HTMLDivElement | null>(null);
   const map = useMap({mapRef, currentCity});
+  const markersRef = useRef<leaflet.Marker[]>([]);
 
   const defaultCustomIcon = leaflet.icon({
     iconUrl: URL_MARKER_DEFAULT,
@@ -31,8 +32,11 @@ export const Map: React.FC<MapProps> = ({
 
   useEffect(() => {
     if (map) {
+      markersRef.current.forEach((marker) => map.removeLayer(marker));
+      markersRef.current = [];
+
       offers.forEach((offer) => {
-        leaflet
+        const marker = leaflet
           .marker({
             lat: offer.lat,
             lng: offer.lng,
@@ -40,6 +44,8 @@ export const Map: React.FC<MapProps> = ({
             icon: defaultCustomIcon,
           })
           .addTo(map);
+
+        markersRef.current.push(marker);
       });
     }
   }, [map, offers]);

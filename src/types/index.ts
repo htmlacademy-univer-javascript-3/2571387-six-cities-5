@@ -1,3 +1,5 @@
+import { store } from '../store';
+
 export type City = 'Paris'
   | 'Cologne'
   | 'Brussels'
@@ -55,3 +57,7 @@ export const enum CardClassNameList {
   neardPlace = 'near-places__card',
   favoritePlace = 'favorites__card',
 }
+
+export type State = ReturnType<typeof store.getState>;
+
+export type AppDispatch = typeof store.dispatch;

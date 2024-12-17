@@ -8,6 +8,8 @@ import Error404 from '../../pages/Error/404';
 import { PrivateRoute } from '../../components/private-router/PrivateRouter';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { REVIEWS } from '../../mocks/reviews';
+import { useInitApp } from '../../hooks/use-init-app';
+
 // import { CityData, offerCard } from '../../types';
 
 // interface IAppProps {
@@ -16,6 +18,8 @@ import { REVIEWS } from '../../mocks/reviews';
 // }
 
 export const App: React.FC = () => {
+  useInitApp();
+
   const currentCity = useAppSelector((state) => state.currentCity);
   const offers = useAppSelector((state) => state.offers);
   const cities = useAppSelector((state) => state.cities);

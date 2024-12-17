@@ -18,18 +18,18 @@ export const ListCities: React.FC<ListCitiesProps> = ({
     {cities.map((city) => (
       <li
         className="locations__item"
-        key={city.title}
+        key={city.name}
         onClick={() => {
-          onUserSelect(city.title);
+          onUserSelect(city.name);
         }}
       >
         <div className={`
           locations__item-link 
           tabs__item
-          ${currentCity === city.title ? CITY_ACTIVE : ''}
+          ${currentCity === city.name ? CITY_ACTIVE : ''}
           `}
         >
-          <span>{city.title}</span>
+          <span>{city.name}</span>
         </div>
       </li>
     )

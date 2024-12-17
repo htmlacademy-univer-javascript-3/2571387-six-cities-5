@@ -1,20 +1,31 @@
 import React from 'react';
-import { offerCard, CityData, AppRoute } from '../../types';
+import { offerCard, CityData, AppRoute, City } from '../../types';
 import { ListOffers } from '../../components/list-offers/ListOffers';
 import { useNavigate } from 'react-router-dom';
 import { Map } from '../../components/map/Map';
 import { CardClassNameList } from '../../types';
+import { useAppDispatch } from '../../hooks';
+import { changeSelectedCity } from '../../store/action';
+import { ListCities } from '../../components/list-cities/ListCities';
 
 type MainProps = {
   offers: offerCard[];
   currentCity: CityData;
+  cities: CityData[];
 };
 
 export const Main: React.FC<MainProps> = ({
   offers,
-  currentCity
+  currentCity,
+  cities,
 }:MainProps) => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const handleUserSelectCity = (cityName: City) => {
+    dispatch(changeSelectedCity(cityName));
+    // dispatch(fillOffers());
+  };
 
   return (
     <div className="page page--gray page--main">
@@ -63,38 +74,7 @@ export const Main: React.FC<MainProps> = ({
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
+            <ListCities currentCity={currentCity.title} cities={cities} onUserSelect={handleUserSelectCity}/>
           </section>
         </div>
         <div className="cities">

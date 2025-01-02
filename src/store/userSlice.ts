@@ -1,13 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { AuthorizationStatus, NameSpace, State, UserData } from '../types';
-import { checkAuthorizationStatus, loginAction, logoutAction } from './api-actions';
+import { AuthorizationStatus, NameSpace, offerCard, State, UserData } from '../types';
+import { checkAuthorizationStatus, fetchFavoriteOffersAction, loginAction, logoutAction } from './api-actions';
 
 type InitialState = {
   error: string | null;
   authorizationStatus: AuthorizationStatus;
   userData: UserData | null;
   loading: boolean;
+  favoriteOffers: offerCard[];
 };
 
 const initialState: InitialState = {
@@ -15,6 +16,7 @@ const initialState: InitialState = {
   authorizationStatus: AuthorizationStatus.UnKnown,
   userData: null,
   loading: false,
+  favoriteOffers: [],
 };
 
 const userSlice = createSlice({
@@ -38,7 +40,7 @@ const userSlice = createSlice({
         }
       })
       .addCase(checkAuthorizationStatus.fulfilled, (state, action) => {
-        state.loading = false;
+        // state.loading = false;
         state.authorizationStatus = AuthorizationStatus.Auth;
         state.userData = action.payload;
       })
@@ -53,7 +55,7 @@ const userSlice = createSlice({
         }
       })
       .addCase(loginAction.fulfilled, (state, action) => {
-        state.loading = false;
+        // state.loading = false;
         state.authorizationStatus = AuthorizationStatus.Auth;
         state.userData = action.payload;
       })
@@ -70,6 +72,20 @@ const userSlice = createSlice({
         state.loading = false;
         state.authorizationStatus = AuthorizationStatus.NoAuth;
         state.userData = null;
+        state.favoriteOffers = [];
+      })
+      .addCase(fetchFavoriteOffersAction.rejected, (state, action) => {
+        state.loading = false;
+        if (action.error.message) {
+          state.error = action.error.message;
+        }
+      })
+      .addCase(fetchFavoriteOffersAction.fulfilled, (state, action) => {
+        state.loading = false;
+        state.favoriteOffers = action.payload;
+      })
+      .addCase(fetchFavoriteOffersAction.pending, (state) => {
+        state.loading = true;
       });
   }
 });
@@ -83,5 +99,7 @@ export const selectUserDataLoading = (state: State) => state[NameSpace.USER].loa
 export const selectAuthStatus = (state: State) => state[NameSpace.USER].authorizationStatus;
 
 export const selectErrorUserDate = (state: State) => state[NameSpace.USER].error;
+
+export const selectUserFavoritesData = (state: State) => state[NameSpace.USER].favoriteOffers;
 
 export const { setUserError } = userSlice.actions;

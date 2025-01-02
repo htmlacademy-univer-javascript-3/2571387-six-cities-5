@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../types';
 import React, { SyntheticEvent, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { selectAuthStatus, selectUserData } from '../../store/userSlice';
+import { selectAuthStatus, selectUserData, selectUserFavoritesData } from '../../store/userSlice';
 
 
 const UserInfoHeader = (): JSX.Element => {
@@ -14,6 +14,9 @@ const UserInfoHeader = (): JSX.Element => {
 
   const userDataEmail = useAppSelector(selectUserData)?.email;
   const userEmail = useMemo(() => userDataEmail, [userDataEmail]);
+
+  const userFavoritesOffer = useAppSelector(selectUserFavoritesData);
+  const userFavourite = useMemo(() => userFavoritesOffer, [userFavoritesOffer]);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -48,13 +51,13 @@ const UserInfoHeader = (): JSX.Element => {
                   <li className="header__nav-item user">
                     <Link
                       className="header__nav-link header__nav-link--profile"
-                      to={AppRoute.Main}
+                      to={AppRoute.Favorites}
                     >
                       <div className="header__avatar-wrapper user__avatar-wrapper" />
                       <span className="header__user-name user__name">
                         {userEmail}
                       </span>
-                      <span className="header__favorite-count">3</span>
+                      <span className="header__favorite-count">{userFavourite.length}</span>
                     </Link>
                   </li> :
                   null

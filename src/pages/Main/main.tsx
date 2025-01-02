@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { useState, useMemo, useCallback } from 'react';
 import { offerCard, CityData } from '../../types';
 import { ListOffers } from '../../components/list-offers/ListOffers';
@@ -11,6 +12,7 @@ import { useAppSelector } from '../../hooks';
 import LoadingScreen from '../../components/loader-screen/LoadingScreen';
 import UserInfoHeader from '../../components/user-info-header/UserInfoHeader';
 import { selectOffersLoading, changeSelectedCity } from '../../store/offerSlice';
+import MainEmpty from '../../components/main-empty/MainEmpty';
 
 type MainProps = {
   offers: offerCard[];
@@ -58,9 +60,11 @@ const Main: React.FC<MainProps> = ({
               </b>
               <FilterOffer currentSort={sortType} onSortChange={setSortType} />
               <div className="cities__places-list places__list tabs__content">
-                { isOffersLoading ?
+                {isOffersLoading ?
                   <LoadingScreen /> :
-                  <ListOffers offers={sortedOffers} cardClassName={CardClassNameList.citiesList} setActiveOffer={setActiveOffer} /> }
+                  sortedOffers.length !== 0 ?
+                    <ListOffers offers={sortedOffers} cardClassName={CardClassNameList.citiesList} setActiveOffer={setActiveOffer} /> :
+                    <MainEmpty currentCity={currentCity}/> }
               </div>
             </section>
             <div className="cities__right-section">

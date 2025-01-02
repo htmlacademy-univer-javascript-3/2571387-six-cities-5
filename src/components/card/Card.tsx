@@ -1,7 +1,10 @@
-import React from 'react';
-import { offerCard, AppRoute } from '../../types';
+import React, { useMemo } from 'react';
+import { offerCard, AppRoute, AuthorizationStatus } from '../../types';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { selectAuthStatus, selectUserFavoritesData } from '../../store/userSlice';
+import { changeFavoriteOfferAction } from '../../store/api-actions';
 
 type CityCardProps = {
   offer: offerCard;
@@ -17,6 +20,28 @@ export const CityCard: React.FC<CityCardProps> = ({
   setActiveOffer,
 }) => {
   const [ isActiveCard, setActiveCard ] = useState(false);
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const authStatus = useAppSelector(selectAuthStatus);
+  const authorizationStatus = useMemo(() => authStatus, [authStatus]);
+
+  const userFavoritesOffer = useAppSelector(selectUserFavoritesData);
+  const userFavourite = useMemo(() => userFavoritesOffer, [userFavoritesOffer]);
+
+  const isFavourite = userFavourite.map((favourite) => favourite.id).includes(offer.id);
+
+  const handleClick = () => {
+    if (authorizationStatus !== AuthorizationStatus.Auth) {
+      navigate(AppRoute.Login);
+    }
+
+    const pathOption = isFavourite ?
+      `${offer.id}/0` :
+      `${offer.id}/1`;
+
+    dispatch(changeFavoriteOfferAction(pathOption));
+  };
   return (
     <article
       className={`${cardClassName} place-card`}
@@ -46,9 +71,11 @@ export const CityCard: React.FC<CityCardProps> = ({
             <b className="place-card__price-value">{offer.price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button button 
-            ${offer.isFavorite ? ACTIVE_MARK_BUTTON_CLASS : ''}`}
-          type="button"
+          <button
+            className={`place-card__bookmark-button button 
+            ${ isFavourite ? ACTIVE_MARK_BUTTON_CLASS : ''}`}
+            type="button"
+            onClick={handleClick}
           >
             <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark" />
@@ -72,4 +99,3 @@ export const CityCard: React.FC<CityCardProps> = ({
     </article>
   );
 };
-

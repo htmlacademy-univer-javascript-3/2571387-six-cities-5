@@ -101,3 +101,8 @@ export type UserData = {
   email: string;
   token: Token;
 }
+
+export enum NameSpace {
+  OFFER = 'offer',
+  USER = 'user',
+}

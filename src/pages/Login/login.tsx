@@ -1,21 +1,26 @@
 import { Link, Navigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../types';
-import { FormEvent, useRef } from 'react';
+import React, { FormEvent, useCallback, useRef, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
+import { selectAuthStatus } from '../../store/userSlice';
 
-export const Login: React.FC = () => {
+const Login: React.FC = () => {
   const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+
+  const authStatus = useAppSelector(selectAuthStatus);
+  const authorizationStatus = useMemo(() => authStatus, [authStatus]);
+
   const emailInput = useRef<HTMLInputElement>(null);
   const passwordInput = useRef<HTMLInputElement>(null);
 
-  function handleSubmit(evt: FormEvent) {
+  const handleSubmit = useCallback((evt: FormEvent) => {
     evt.preventDefault();
     const login = emailInput.current!.value;
     const password = passwordInput.current!.value;
     dispatch(loginAction({login, password}));
-  }
+  },
+  [passwordInput, emailInput]);
 
   if (authorizationStatus === AuthorizationStatus.Auth) {
     return <Navigate to={AppRoute.Main} />;
@@ -77,3 +82,5 @@ export const Login: React.FC = () => {
     </div>
   );
 };
+
+export default React.memo(Login);

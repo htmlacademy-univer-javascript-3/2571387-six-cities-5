@@ -6,7 +6,7 @@ const CITY_ACTIVE = 'tabs__item--active';
 type ListCitiesProps = {
   currentCity: City;
   cities: CityData[];
-  onUserSelect: (cityName: City) => void;
+  onUserSelect: (city: CityData) => void;
 }
 
 export const ListCities: React.FC<ListCitiesProps> = ({
@@ -20,7 +20,7 @@ export const ListCities: React.FC<ListCitiesProps> = ({
         className="locations__item"
         key={city.name}
         onClick={() => {
-          onUserSelect(city.name);
+          onUserSelect(city);
         }}
       >
         <div className={`

@@ -1,15 +1,15 @@
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import { AppRoute } from '../../types';
 //import styles from './styles.module.css';
 
-function Error404(): JSX.Element {
-  return (
-    <div>
-      404 Not Found
-      <div>
-        <Link to="/" className="link_not_found">Go back to Home</Link>
-      </div>
-    </div>
-  );
-}
+const NotFound: React.FC = () => (
+  <Fragment>
+    <h2> Not Found 404.</h2>
+    <Link to={AppRoute.Main}>
+      На главную страницу
+    </Link>
+  </Fragment>
+);
 
-export default Error404;
+export default React.memo(NotFound);

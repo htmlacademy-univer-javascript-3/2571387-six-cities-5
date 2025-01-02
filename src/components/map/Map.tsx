@@ -23,7 +23,7 @@ const currentCustomIcon = leaflet.icon({
   iconAnchor: [20, 40],
 });
 
-export const Map: React.FC<MapProps> = ({
+const Map: React.FC<MapProps> = ({
   offers,
   currentCity,
   activeOffer,
@@ -59,3 +59,5 @@ export const Map: React.FC<MapProps> = ({
     </div>
   );
 };
+
+export default React.memo(Map);

@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
-import { offerCard, CityData, City } from '../../types';
+import React, { useState, useMemo, useCallback } from 'react';
+import { offerCard, CityData } from '../../types';
 import { ListOffers } from '../../components/list-offers/ListOffers';
-import { Map } from '../../components/map/Map';
+import Map from '../../components/map/Map';
+import useFilter from '../../hooks/use-fiter';
 import { CardClassNameList, SortName } from '../../types';
 import { useAppDispatch } from '../../hooks';
-import { changeSelectedCity } from '../../store/action';
 import { ListCities } from '../../components/list-cities/ListCities';
 import { FilterOffer } from '../../components/filter-offers/FilterOffer';
 import { useAppSelector } from '../../hooks';
 import LoadingScreen from '../../components/loader-screen/LoadingScreen';
-import { UserInfoHeader } from '../../components/user-info-header/UserInfoHeader';
+import UserInfoHeader from '../../components/user-info-header/UserInfoHeader';
+import { selectOffersLoading, changeSelectedCity } from '../../store/offerSlice';
 
 type MainProps = {
   offers: offerCard[];
@@ -17,35 +18,26 @@ type MainProps = {
   cities: CityData[];
 };
 
-export const Main: React.FC<MainProps> = ({
+const Main: React.FC<MainProps> = ({
   offers,
   currentCity,
   cities,
 }:MainProps) => {
   const dispatch = useAppDispatch();
-  const isOffersLoading = useAppSelector((state) => state.offersLoading);
-  const handleUserSelectCity = (cityName: City) => {
-    dispatch(changeSelectedCity(cityName));
-  };
+
+  const OffersLoading = useAppSelector(selectOffersLoading);
+  const isOffersLoading = useMemo(() => OffersLoading, [OffersLoading]);
+
+  const handleUserSelectCity = useCallback((city: CityData) => {
+    dispatch(changeSelectedCity(city));
+  },
+  [offers]);
 
   const [activeOffer, setActiveOffer] = useState<string | null>(null);
-
   const [sortType, setSortType] = useState<SortName>(SortName.popular);
-  const sortedOffers = offers
-    .filter((offer) =>
-      offer.city.name === currentCity.name)
-    .sort((a, b) => {
-      switch (sortType) {
-        case SortName.lowToHigh:
-          return a.price - b.price;
-        case SortName.highToLow:
-          return b.price - a.price;
-        case SortName.topRated:
-          return b.rating - a.rating;
-        default:
-          return 0;
-      }
-    });
+
+  const sortedOffersList = useFilter({offers, currentCity, sortType});
+  const sortedOffers = useMemo(() => sortedOffersList, [sortedOffersList]);
 
   return (
     <div className="page page--gray page--main">
@@ -82,3 +74,5 @@ export const Main: React.FC<MainProps> = ({
     </div>
   );
 };
+
+export default React.memo(Main);

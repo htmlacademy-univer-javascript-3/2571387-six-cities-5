@@ -1,4 +1,5 @@
 import './loading-screen.css';
+import React from 'react';
 
 function LoadingScreen(): JSX.Element {
   return (
@@ -9,4 +10,4 @@ function LoadingScreen(): JSX.Element {
   );
 }
 
-export default LoadingScreen;
+export default React.memo(LoadingScreen);

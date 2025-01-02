@@ -3,19 +3,27 @@ import { useAppSelector, useAppDispatch } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../types';
-import { SyntheticEvent } from 'react';
+import React, { SyntheticEvent, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
+import { selectAuthStatus, selectUserData } from '../../store/userSlice';
 
 
-export const UserInfoHeader = (): JSX.Element => {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const userEmail = useAppSelector((state) => state.userData?.email);
+const UserInfoHeader = (): JSX.Element => {
+  const authStatus = useAppSelector(selectAuthStatus);
+  const authorizationStatus = useMemo(() => authStatus, [authStatus]);
+
+  const userDataEmail = useAppSelector(selectUserData)?.email;
+  const userEmail = useMemo(() => userDataEmail, [userDataEmail]);
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const handleClick = (evt: SyntheticEvent) => {
+
+  const handleClick = useCallback((evt: SyntheticEvent) => {
     evt.preventDefault();
     dispatch(logoutAction());
-  };
+  },
+  [dispatch]);
+
   return (
     <header className="header">
       <div className="container">
@@ -69,3 +77,5 @@ export const UserInfoHeader = (): JSX.Element => {
     </header>
   );
 };
+
+export default React.memo(UserInfoHeader);

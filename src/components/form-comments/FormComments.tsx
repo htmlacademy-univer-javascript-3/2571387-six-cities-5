@@ -31,6 +31,10 @@ export const FormComments: React.FC<FormCommentsProps> = ({
       (evt: FormEvent) => {
         evt.preventDefault();
         handleSubmit(commentData);
+        setCommentData({
+          rating: 0,
+          review: '',
+        });
       }
     }
     >

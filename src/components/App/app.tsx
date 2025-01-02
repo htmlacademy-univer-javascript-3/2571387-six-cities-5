@@ -1,29 +1,31 @@
 import { useAppSelector } from '../../hooks';
-import { Main } from '../../pages/Main/main';
-import { AppRoute} from '../../types/index';
-import { Login } from '../../pages/Login/login';
-import { Favorites } from '../../pages/Favorites/favorites';
-import { Offer } from '../../pages/Offer/offer';
+import { useMemo } from 'react';
+import Main from '../../pages/Main/main';
+import {AppRoute} from '../../types/index';
+import Login from '../../pages/Login/login';
+import Favorites from '../../pages/Favorites/favorites';
+import Offer from '../../pages/Offer/offer';
 import Error404 from '../../pages/Error/404';
 import { PrivateRoute } from '../../components/private-router/PrivateRouter';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useInitApp } from '../../hooks/use-init-app';
-
-// import { CityData, offerCard } from '../../types';
-
-// interface IAppProps {
-//   offers: offerCard[];
-//   currentCity: CityData;
-// }
+import { selectCities, selectCurrentCity, selectOffersData } from '../../store/offerSlice';
+import { selectAuthStatus } from '../../store/userSlice';
 
 export const App: React.FC = () => {
   useInitApp();
 
-  const currentCity = useAppSelector((state) => state.currentCity);
-  const offers = useAppSelector((state) => state.offers);
-  const cities = useAppSelector((state) => state.cities);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const city = useAppSelector(selectCurrentCity);
+  const currentCity = useMemo(() => city, [city]);
 
+  const offersList = useAppSelector(selectOffersData);
+  const offers = useMemo(() => offersList, [offersList]);
+
+  const citiesList = useAppSelector(selectCities);
+  const cities = useMemo(() => citiesList, [citiesList]);
+
+  const authStatus = useAppSelector(selectAuthStatus);
+  const authorizationStatus = useMemo(() => authStatus, [authStatus]);
   return (
     <BrowserRouter>
       <Routes>
@@ -51,10 +53,9 @@ export const App: React.FC = () => {
         />
         <Route
           path='*'
-          element={<Error404 />}
+          element={<Error404/>}
         />
       </Routes>
     </BrowserRouter>
   );
 };
-

@@ -55,4 +55,3 @@ export function useMap({mapRef, currentCity}: useMapProps) {
 
   return map;
 }
-

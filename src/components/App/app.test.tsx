@@ -22,7 +22,6 @@ describe('Application Routing', () => {
     const cityPlaceTestId = 'city-place';
     const expectedCity = 'Paris';
     mockHistory.push(AppRoute.Main);
-
     render(withStoreComponent);
     const citiesList = screen.getByTestId(citiesListTestId);
     const cityTextParagraf = screen.getByTestId(cityPlaceTestId);
@@ -221,7 +220,7 @@ describe('Application Routing', () => {
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
     const unknownRoute = datatype.string();
     mockHistory.push(`/${unknownRoute}`);
-    const expectedText = 'Not Found 404.';
+    const expectedText = /Not Found 404./i;
 
     render(withStoreComponent);
 

@@ -48,7 +48,7 @@ const Main: React.FC<MainProps> = ({
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <section className="locations container" data-testid="cities-list">
+          <section className="locations container">
             <ListCities currentCity={currentCity.name} cities={cities} onUserSelect={handleUserSelectCity}/>
           </section>
         </div>

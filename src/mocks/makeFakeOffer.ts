@@ -12,6 +12,7 @@ const makeFakeOffer = (): offerCard => ({
   title: helpers.randomize(),
   type: helpers.randomize(),
   isFavorite: true,
+  isPremium: true,
   location: makeFakeLocation(),
   images: new Array(3).fill(null).map(() => (image.imageUrl())),
   bedrooms: datatype.number(),

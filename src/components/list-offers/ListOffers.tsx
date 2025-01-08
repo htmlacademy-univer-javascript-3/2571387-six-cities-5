@@ -1,6 +1,6 @@
 import React from 'react';
 import { offerCard, CardClassNameList } from '../../types';
-import { CityCard } from '../card/Card';
+import CityCard from '../card/CityCard';
 
 type ListOffersProps = {
   offers: offerCard[];

@@ -37,6 +37,7 @@ export const FormComments: React.FC<FormCommentsProps> = ({
         });
       }
     }
+    data-testid="form-comment"
     >
       <label className="reviews__label form__label" htmlFor="review">
         Your review

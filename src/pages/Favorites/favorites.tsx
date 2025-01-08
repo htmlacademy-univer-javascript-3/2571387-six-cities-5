@@ -4,7 +4,7 @@ import UserInfoHeader from '../../components/user-info-header/UserInfoHeader';
 import { CardClassNameList } from '../../types';
 import React, { useMemo } from 'react';
 import { useAppSelector } from '../../hooks';
-import { selectUserFavoritesData } from '../../store/userSlice';
+import { selectUserFavoritesData } from '../../store/user-slice/selectors';
 import { Link } from 'react-router-dom';
 import FavoritesEmpty from '../../components/favorites-empty/Favorites-empty';
 

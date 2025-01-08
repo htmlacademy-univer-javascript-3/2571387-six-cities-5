@@ -3,7 +3,7 @@ import { offerCard, AppRoute, AuthorizationStatus } from '../../types';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { selectAuthStatus, selectUserFavoritesData } from '../../store/userSlice';
+import { selectAuthStatus, selectUserFavoritesData } from '../../store/user-slice/selectors';
 import { changeFavoriteOfferAction } from '../../store/api-actions';
 
 type CityCardProps = {

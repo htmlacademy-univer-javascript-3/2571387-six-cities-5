@@ -3,7 +3,7 @@ import { AppRoute, AuthorizationStatus } from '../../types';
 import React, { FormEvent, useCallback, useRef, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
-import { selectAuthStatus } from '../../store/userSlice';
+import { selectAuthStatus } from '../../store/user-slice/selectors';
 
 const Login: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -49,7 +49,7 @@ const Login: React.FC = () => {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" onSubmit={handleSubmit}>
+            <form className="login__form form" onSubmit={handleSubmit} data-testid="login-form">
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input
@@ -59,6 +59,7 @@ const Login: React.FC = () => {
                   placeholder="Email"
                   ref={emailInput}
                   required
+                  data-testid="email-input"
                 />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
@@ -70,6 +71,7 @@ const Login: React.FC = () => {
                   placeholder="Password"
                   ref={passwordInput}
                   required
+                  data-testid="password-input"
                 />
               </div>
               <button className="login__submit form__submit button" type="submit">

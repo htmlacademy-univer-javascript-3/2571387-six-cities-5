@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { APIRoute } from '../types/constant';
 import { AppDispatch, State, offerCard, AuthData, UserData, TReview, ReviewData } from '../types';
 import { AxiosInstance } from 'axios';
-import { dropToken, saveToken } from '../services/token';
+import { dropToken, getToken, saveToken } from '../services/token';
 
 export const fetchOffersAction = createAsyncThunk<offerCard[], undefined, {
   dispatch: AppDispatch;
@@ -59,7 +59,7 @@ export const fetchFavoriteOffersAction = createAsyncThunk<offerCard[], undefined
 }>(
   'FETCH_FAVORITE_OFFERS',
   async(_arg, { extra: api}) => {
-    const { data } = await api.get<offerCard[]>(APIRoute.Favorites);
+    const { data } = await api.get<offerCard[]>(APIRoute.Favorites, {params: { 'X-Token': getToken()}});
     return data;
   },
 );
@@ -76,6 +76,8 @@ export const changeFavoriteOfferAction = createAsyncThunk<void, string, {
     dispatch(fetchFavoriteOffersAction());
   },
 );
+
+
 export const checkAuthorizationStatus = createAsyncThunk<UserData, undefined, {
   dispatch: AppDispatch;
   state: State;

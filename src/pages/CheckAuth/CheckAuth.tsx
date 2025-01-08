@@ -1,4 +1,4 @@
-import { Login } from '../Login/login';
+import Login from '../Login/login';
 
 type AuthorizedRouteProps = {
   element: JSX.Element;

@@ -14,7 +14,7 @@ type CityCardProps = {
 
 const ACTIVE_MARK_BUTTON_CLASS = 'place-card__bookmark-button--active';
 
-export const CityCard: React.FC<CityCardProps> = ({
+const CityCard: React.FC<CityCardProps> = ({
   offer,
   cardClassName,
   setActiveOffer,
@@ -29,11 +29,12 @@ export const CityCard: React.FC<CityCardProps> = ({
   const userFavoritesOffer = useAppSelector(selectUserFavoritesData);
   const userFavourite = useMemo(() => userFavoritesOffer, [userFavoritesOffer]);
 
-  const isFavourite = userFavourite.map((favourite) => favourite.id).includes(offer.id);
+  const isFavourite = userFavourite.length === 0 ? false : userFavourite.map((favourite) => favourite.id).includes(offer.id);
 
   const handleClick = () => {
     if (authorizationStatus !== AuthorizationStatus.Auth) {
       navigate(AppRoute.Login);
+      return;
     }
 
     const pathOption = isFavourite ?
@@ -48,6 +49,7 @@ export const CityCard: React.FC<CityCardProps> = ({
       onMouseEnter={() => setActiveOffer && setActiveOffer(offer.id)}
       onMouseLeave={() => setActiveOffer && setActiveOffer(null)}
       onMouseOver={() => setActiveCard(!isActiveCard)}
+      data-testid="offer-card"
     >
       {offer.isPremium && (
         <div className="place-card__mark">
@@ -85,7 +87,7 @@ export const CityCard: React.FC<CityCardProps> = ({
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${offer.rating * 20}%`}} />
+            <span style={{ width: `${offer.rating * 20}%`}} data-testid="city-card-rating"/>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
@@ -99,3 +101,5 @@ export const CityCard: React.FC<CityCardProps> = ({
     </article>
   );
 };
+
+export default React.memo(CityCard);

@@ -49,6 +49,7 @@ export const FormComments: React.FC<FormCommentsProps> = ({
           defaultValue={5}
           id="5-stars"
           type="radio"
+          checked={commentData.rating === 5}
           onChange={handleFieldChange}
         />
         <label
@@ -66,6 +67,7 @@ export const FormComments: React.FC<FormCommentsProps> = ({
           defaultValue={4}
           id="4-stars"
           type="radio"
+          checked={commentData.rating === 4}
           onChange={handleFieldChange}
         />
         <label
@@ -83,6 +85,7 @@ export const FormComments: React.FC<FormCommentsProps> = ({
           defaultValue={3}
           id="3-stars"
           type="radio"
+          checked={commentData.rating === 3}
           onChange={handleFieldChange}
         />
         <label
@@ -100,6 +103,7 @@ export const FormComments: React.FC<FormCommentsProps> = ({
           defaultValue={2}
           id="2-stars"
           type="radio"
+          checked={commentData.rating === 2}
           onChange={handleFieldChange}
         />
         <label
@@ -117,6 +121,7 @@ export const FormComments: React.FC<FormCommentsProps> = ({
           defaultValue={1}
           id="1-star"
           type="radio"
+          checked={commentData.rating === 1}
           onChange={handleFieldChange}
         />
         <label
@@ -146,7 +151,7 @@ export const FormComments: React.FC<FormCommentsProps> = ({
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={!commentData.rating && !commentData.review}
+          disabled={!commentData.rating || !commentData.review}
         >
           Submit
         </button>

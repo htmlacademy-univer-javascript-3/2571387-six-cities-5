@@ -14,7 +14,7 @@ export const ListCities: React.FC<ListCitiesProps> = ({
   cities,
   onUserSelect,
 }) => (
-  <ul className="locations__list tabs__list">
+  <ul className="locations__list tabs__list" data-testid="cities-list">
     {cities.map((city) => (
       <li
         className="locations__item"

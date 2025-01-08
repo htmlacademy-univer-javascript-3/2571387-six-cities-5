@@ -6,7 +6,7 @@ import Map from '../../components/map/Map';
 import { ListOffers } from '../../components/list-offers/ListOffers';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchNearOfferAction, fetchOfferAction, fetchReviewAction, postReviewAction } from '../../store/api-actions';
+import { changeFavoriteOfferAction, fetchNearOfferAction, fetchOfferAction, fetchReviewAction, postReviewAction } from '../../store/api-actions';
 import UserInfoHeader from '../../components/user-info-header/UserInfoHeader';
 import LoadingScreen from '../../components/loader-screen/LoadingScreen';
 import { clearOffer, clearReviews, clearNearOffers } from '../../store/action';
@@ -52,6 +52,13 @@ const Offer: React.FC = () => {
     }
   },
   [id]);
+
+  const handleFavouriteClick = useCallback(() => {
+    const pathOption = offerData!.id + offerData?.isFavorite ?
+      '/0' :
+      '/1';
+    dispatch(changeFavoriteOfferAction(pathOption));
+  }, [offerData]);
 
   useEffect(() => {
     if (id) {
@@ -117,11 +124,11 @@ const Offer: React.FC = () => {
                         <h1 className="offer__name" data-testid="offer-title">
                           {offerData.title}
                         </h1>
-                        <button className="offer__bookmark-button button" type="button">
+                        <button className={offerData.isFavorite ? 'offer__bookmark-button offer__bookmark-button--active button' : 'offer__bookmark-button button'} type="button" onClick={handleFavouriteClick} data-testid = 'favourite-button'>
                           <svg className="offer__bookmark-icon" width={31} height={33}>
                             <use xlinkHref="#icon-bookmark" />
                           </svg>
-                          <span className="visually-hidden">To bookmarks</span> {/* Добавить отображение */}
+                          <span className="visually-hidden">To bookmarks</span>
                         </button>
                       </div>
                       <div className="offer__rating rating">

@@ -36,3 +36,5 @@ export const makeFakeStore = (initialState?: Partial<State>): State => ({
   [NameSpace.OFFER]: mockOfferInitialState,
   ...initialState ?? {},
 });
+
+export type SelectorFunction = () => unknown;

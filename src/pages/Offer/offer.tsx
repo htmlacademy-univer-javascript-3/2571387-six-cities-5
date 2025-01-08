@@ -10,8 +10,8 @@ import { fetchNearOfferAction, fetchOfferAction, fetchReviewAction, postReviewAc
 import UserInfoHeader from '../../components/user-info-header/UserInfoHeader';
 import LoadingScreen from '../../components/loader-screen/LoadingScreen';
 import { clearOffer, clearReviews, clearNearOffers } from '../../store/action';
-import { selectCurrentCity, selectErrorOfferData, selectNearOffersData, selectNearOffersLoading, selectOfferData, selectOfferLoading, selectReviewsData, selectReviewsLoading } from '../../store/offerSlice';
-import { selectAuthStatus } from '../../store/userSlice';
+import { selectCurrentCity, selectErrorOfferData, selectNearOffersData, selectNearOffersLoading, selectOfferData, selectOfferLoading, selectReviewsData, selectReviewsLoading } from '../../store/offer-slice/selectors';
+import { selectAuthStatus } from '../../store/user-slice/selectors';
 
 const Offer: React.FC = () => {
   const idParam = useParams().id;
@@ -89,7 +89,7 @@ const Offer: React.FC = () => {
               (
                 <>
                   <div className="offer__gallery-container container">
-                    <div className="offer__gallery">
+                    <div className="offer__gallery" data-testid="offer-gallery">
                       {
                         offerData.images.map((image) => (
                           <div className="offer__image-wrapper" key={image}>
@@ -114,7 +114,7 @@ const Offer: React.FC = () => {
                         )
                       }
                       <div className="offer__name-wrapper">
-                        <h1 className="offer__name">
+                        <h1 className="offer__name" data-testid="offer-title">
                           {offerData.title}
                         </h1>
                         <button className="offer__bookmark-button button" type="button">
@@ -183,12 +183,7 @@ const Offer: React.FC = () => {
                         {
                           (isReviewsLoading || !reviews) ?
                             <LoadingScreen /> :
-                            <>
-                              <h2 className="reviews__title">
-                                Reviews · <span className="reviews__amount">{reviews.length}</span>
-                              </h2>
-                              <ListReviews reviews={reviews} />
-                            </>
+                            <ListReviews reviews={reviews} />
                         }
                         { authorizationStatus === AuthorizationStatus.Auth ?
                           <FormComments handleSubmit={handleSubmit} /> :
@@ -208,7 +203,7 @@ const Offer: React.FC = () => {
             <h2 className="near-places__title">
               Other places in the neighbourhood
             </h2>
-            <div className="near-places__list places__list">
+            <div className="near-places__list places__list" data-testid="near-place">
               {
                 (isNearOffersLoading || !nearOffers) ?
                   <LoadingScreen /> :

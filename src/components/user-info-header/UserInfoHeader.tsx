@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../types';
 import React, { SyntheticEvent, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { selectAuthStatus, selectUserData, selectUserFavoritesData } from '../../store/userSlice';
+import { selectAuthStatus, selectUserData, selectUserFavoritesData } from '../../store/user-slice/selectors';
 
 
 const UserInfoHeader = (): JSX.Element => {
@@ -54,10 +54,10 @@ const UserInfoHeader = (): JSX.Element => {
                       to={AppRoute.Favorites}
                     >
                       <div className="header__avatar-wrapper user__avatar-wrapper" />
-                      <span className="header__user-name user__name">
+                      <span className="header__user-name user__name" data-testid="user-email">
                         {userEmail}
                       </span>
-                      <span className="header__favorite-count">{userFavourite.length}</span>
+                      <span className="header__favorite-count" data-testid="user-favorites">{userFavourite.length}</span>
                     </Link>
                   </li> :
                   null

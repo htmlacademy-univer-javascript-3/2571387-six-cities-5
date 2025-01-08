@@ -1,16 +1,17 @@
 import { useAppSelector } from '../../hooks';
 import { useMemo } from 'react';
 import Main from '../../pages/Main/main';
-import {AppRoute} from '../../types/index';
+import { AppRoute } from '../../types/index';
 import Login from '../../pages/Login/login';
 import Favorites from '../../pages/Favorites/favorites';
 import Offer from '../../pages/Offer/offer';
 import Error404 from '../../pages/Error/404';
 import { PrivateRoute } from '../../components/private-router/PrivateRouter';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { useInitApp } from '../../hooks/use-init-app';
-import { selectCities, selectCurrentCity, selectOffersData } from '../../store/offerSlice';
-import { selectAuthStatus } from '../../store/userSlice';
+import { selectCities, selectCurrentCity, selectOffersData } from '../../store/offer-slice/selectors';
+import { selectAuthStatus } from '../../store/user-slice/selectors';
+import { HelmetProvider } from 'react-helmet-async';
 
 export const App: React.FC = () => {
   useInitApp();
@@ -27,7 +28,7 @@ export const App: React.FC = () => {
   const authStatus = useAppSelector(selectAuthStatus);
   const authorizationStatus = useMemo(() => authStatus, [authStatus]);
   return (
-    <BrowserRouter>
+    <HelmetProvider>
       <Routes>
         <Route
           path={AppRoute.Main}
@@ -39,7 +40,7 @@ export const App: React.FC = () => {
           path={AppRoute.Favorites}
           element={
             <PrivateRoute authorizationStatus={authorizationStatus}>
-              <Favorites offers={offers}/>
+              <Favorites />
             </PrivateRoute>
           }
         />
@@ -53,9 +54,9 @@ export const App: React.FC = () => {
         />
         <Route
           path='*'
-          element={<Error404/>}
+          element={<Error404 />}
         />
       </Routes>
-    </BrowserRouter>
+    </HelmetProvider>
   );
 };

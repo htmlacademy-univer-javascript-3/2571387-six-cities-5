@@ -4,7 +4,7 @@ import React from 'react';
 function LoadingScreen(): JSX.Element {
   return (
     <div className="page-loader">
-      <div className="spinner"></div>
+      <div className="spinner" data-testid="spinner"></div>
       <p>Loading...</p>
     </div>
   );

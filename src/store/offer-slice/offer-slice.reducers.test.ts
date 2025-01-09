@@ -1,8 +1,8 @@
-import { changeSelectedCity, offerReducer, setOfferError } from './offerSlice';
+import { changeSelectedCity, clearNearOffers, clearOffer, clearReviews, offerReducer, setOfferError } from './offerSlice';
 import { CITIES } from '../../types/cities';
 import { fetchNearOfferAction, fetchOfferAction, fetchOffersAction, fetchReviewAction } from '../api-actions';
-import makeFakeOffer from '../../mocks/makeFakeOffer';
-import makeFakeReview from '../../mocks/makeFakeReviews';
+import makeFakeOffer from '../../utils/makeFakeOffer';
+import makeFakeReview from '../../utils/makeFakeReviews';
 
 describe('Offer Reducer', () => {
   it('should return initial state with empty action', () => {
@@ -76,6 +76,104 @@ describe('Offer Reducer', () => {
     };
 
     const resultState = offerReducer(initialState, changeSelectedCity(CITIES[2]));
+
+    expect(resultState).toEqual(expectedState);
+  });
+
+  it('should return empty value of near offers from state', () => {
+    const initialState = {
+      currentCity: CITIES[0],
+      cities: CITIES,
+      offers: [],
+      offersLoading: false,
+      error: null,
+      offer: null,
+      offerLoading: false,
+      nearOffers: [makeFakeOffer()],
+      nearOffersLoading: false,
+      reviews: [],
+      reviewsLoading: false,
+    };
+    const expectedState = {
+      currentCity: CITIES[0],
+      cities: CITIES,
+      offers: [],
+      offersLoading: false,
+      error: null,
+      offer: null,
+      offerLoading: false,
+      nearOffers: [],
+      nearOffersLoading: false,
+      reviews: [],
+      reviewsLoading: false,
+    };
+
+    const resultState = offerReducer(initialState, clearNearOffers());
+
+    expect(resultState).toEqual(expectedState);
+  });
+
+  it('should return empty value of offer from state', () => {
+    const initialState = {
+      currentCity: CITIES[0],
+      cities: CITIES,
+      offers: [],
+      offersLoading: false,
+      error: null,
+      offer: makeFakeOffer(),
+      offerLoading: false,
+      nearOffers: [],
+      nearOffersLoading: false,
+      reviews: [],
+      reviewsLoading: false,
+    };
+    const expectedState = {
+      currentCity: CITIES[0],
+      cities: CITIES,
+      offers: [],
+      offersLoading: false,
+      error: null,
+      offer: null,
+      offerLoading: false,
+      nearOffers: [],
+      nearOffersLoading: false,
+      reviews: [],
+      reviewsLoading: false,
+    };
+
+    const resultState = offerReducer(initialState, clearOffer());
+
+    expect(resultState).toEqual(expectedState);
+  });
+  it('should return empty value of review from state', () => {
+    const initialState = {
+      currentCity: CITIES[0],
+      cities: CITIES,
+      offers: [],
+      offersLoading: false,
+      error: null,
+      offer: null,
+      offerLoading: false,
+      nearOffers: [],
+      nearOffersLoading: false,
+      reviews: [makeFakeReview()],
+      reviewsLoading: false,
+    };
+    const expectedState = {
+      currentCity: CITIES[0],
+      cities: CITIES,
+      offers: [],
+      offersLoading: false,
+      error: null,
+      offer: null,
+      offerLoading: false,
+      nearOffers: [],
+      nearOffersLoading: false,
+      reviews: [],
+      reviewsLoading: false,
+    };
+
+    const resultState = offerReducer(initialState, clearReviews());
 
     expect(resultState).toEqual(expectedState);
   });

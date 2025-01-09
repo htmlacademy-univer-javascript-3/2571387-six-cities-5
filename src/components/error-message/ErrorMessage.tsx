@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setOfferError } from '../../store/offer-slice/offerSlice';
+import {setOfferError} from '../../store/offer-slice/offerSlice';
 import { selectErrorOfferData } from '../../store/offer-slice/selectors';
 import { setUserError } from '../../store/user-slice/userSlice';
 import { selectErrorUserDate } from '../../store/user-slice/selectors';

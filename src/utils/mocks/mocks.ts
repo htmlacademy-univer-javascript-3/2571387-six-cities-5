@@ -1,9 +1,9 @@
-import { createAPI } from '../services/api';
+import { createAPI } from '../../services/api';
 import { ThunkDispatch } from 'redux-thunk';
 import { Action } from 'redux';
-import { NameSpace, State } from '../types';
-import { AuthorizationStatus } from '../types';
-import { CITIES } from '../types/cities';
+import { NameSpace, State } from '../../types';
+import { AuthorizationStatus } from '../../types';
+import { CITIES } from '../../types/cities';
 
 export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;
 

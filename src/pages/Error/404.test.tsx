@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { withHistory } from '../../mocks/mockComponents';
+import { withHistory } from '../../utils/mocks/mockComponents';
 import Error404 from './404';
 
 describe('Component: Error404', () => {

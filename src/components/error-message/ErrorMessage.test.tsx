@@ -1,10 +1,10 @@
-import { withStore } from '../../mocks/mockComponents';
+import { withStore } from '../../utils/mocks/mockcomponents';
 import { NameSpace } from '../../types';
-import ErrorMessage from './error-message';
+import ErrorMessage from './ErrorMessage';
 import { render, screen } from '@testing-library/react';
 import { vi } from 'vitest';
 import { TIMEOUT_SHOW_ERROR } from '../../types/constant';
-import { mockOfferInitialState, mockUserInitialState } from '../../mocks/mocks';
+import { mockOfferInitialState, mockUserInitialState } from '../../utils/mocks/mocks';
 
 describe('Component: Error Message', () => {
   beforeEach(() => {

@@ -1,5 +1,5 @@
-import makeFakeOffer from '../../mocks/makeFakeOffer';
-import makeFakeReview from '../../mocks/makeFakeReviews';
+import makeFakeOffer from '../../utils/makeFakeOffer';
+import makeFakeReview from '../../utils/makeFakeReviews';
 import { NameSpace } from '../../types';
 import { CITIES } from '../../types/cities';
 import { selectCities, selectCurrentCity, selectErrorOfferData, selectNearOffersData, selectNearOffersLoading, selectOfferData, selectOfferLoading, selectOffersData, selectOffersLoading, selectReviewsData, selectReviewsLoading } from './selectors';

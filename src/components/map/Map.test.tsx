@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it } from 'vitest';
-import makeFakeOffer from '../../mocks/makeFakeOffer.ts';
-import makeFakeCityData from '../../mocks/makeFakeCityData.ts';
+import makeFakeOffer from '../../utils/makeFakeOffer';
+import makeFakeCityData from '../../utils/makeFakeCityData';
 import Map from './Map.tsx';
 
 describe('Component: Map Component', () => {

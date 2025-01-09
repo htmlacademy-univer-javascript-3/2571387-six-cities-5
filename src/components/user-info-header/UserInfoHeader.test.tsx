@@ -3,10 +3,10 @@ import { vi, describe, it, beforeEach, expect } from 'vitest';
 import UserInfoHeader from './UserInfoHeader';
 import { AuthorizationStatus, AppRoute, NameSpace } from '../../types';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { withStore, withHistory } from '../../mocks/mockComponents';
-import { mockUserInitialState, SelectorFunction } from '../../mocks/mocks';
-import makeFakeUserData from '../../mocks/makeFakeUserData';
-import makeFakeOffer from '../../mocks/makeFakeOffer';
+import { withStore, withHistory } from '../../utils/mocks/mockcomponents';
+import { mockUserInitialState, SelectorFunction } from '../../utils/mocks/mocks';
+import makeFakeUserData from '../../utils/makeFakeUserData';
+import makeFakeOffer from '../../utils/makeFakeOffer';
 
 vi.mock('../../hooks', () => ({
   useAppDispatch: vi.fn(),

@@ -1,10 +1,10 @@
-import { withStore, withHistory } from '../../mocks/mockComponents';
-import { screen, render } from '@testing-library/react';
-import makeFakeOffer from '../../mocks/makeFakeOffer';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { makeFakeStore, SelectorFunction } from '../../mocks/mocks';
 import Main from './main';
-import makeFakeCityData from '../../mocks/makeFakeCityData';
+import { withStore, withHistory } from '../../utils/mocks/mockcomponents';
+import { screen, render } from '@testing-library/react';
+import makeFakeOffer from '../../utils/makeFakeOffer';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { makeFakeStore, SelectorFunction } from '../../utils/mocks/mocks';
+import makeFakeCityData from '../../utils/makeFakeCityData';
 import { CITIES } from '../../types/cities';
 
 vi.mock('../../hooks', () => ({

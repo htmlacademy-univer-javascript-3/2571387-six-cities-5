@@ -151,7 +151,7 @@ export const FormComments: React.FC<FormCommentsProps> = ({
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={!commentData.rating || !commentData.review}
+          disabled={!commentData.rating || !commentData.review || (commentData.review.length < 50)}
         >
           Submit
         </button>

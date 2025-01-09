@@ -1,5 +1,5 @@
-import { Navigate, useParams } from 'react-router-dom';
-import { CardClassNameList, AuthorizationStatus } from '../../types';
+import { Navigate,useNavigate, useParams } from 'react-router-dom';
+import { CardClassNameList, AuthorizationStatus, AppRoute } from '../../types';
 import { commentData, FormComments } from '../../components/form-comments/FormComments';
 import { ListReviews } from '../../components/listReviews/ListReviews';
 import Map from '../../components/map/Map';
@@ -9,11 +9,13 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeFavoriteOfferAction, fetchNearOfferAction, fetchOfferAction, fetchReviewAction, postReviewAction } from '../../store/api-actions';
 import UserInfoHeader from '../../components/user-info-header/UserInfoHeader';
 import LoadingScreen from '../../components/loader-screen/LoadingScreen';
-import { clearOffer, clearReviews, clearNearOffers } from '../../store/action';
+import { clearOffer, clearReviews, clearNearOffers } from '../../store/offer-slice/offerSlice';
 import { selectCurrentCity, selectErrorOfferData, selectNearOffersData, selectNearOffersLoading, selectOfferData, selectOfferLoading, selectReviewsData, selectReviewsLoading } from '../../store/offer-slice/selectors';
-import { selectAuthStatus } from '../../store/user-slice/selectors';
+import { selectAuthStatus, selectUserFavoritesData } from '../../store/user-slice/selectors';
 
 const Offer: React.FC = () => {
+  const navigate = useNavigate();
+
   const idParam = useParams().id;
   const id = useMemo(() => idParam, [idParam]);
 
@@ -29,6 +31,11 @@ const Offer: React.FC = () => {
 
   const offer = useAppSelector(selectOfferData);
   const offerData = useMemo(() => offer, [offer]);
+
+  const offersFavorite = useAppSelector(selectUserFavoritesData);
+  const offersFavoriteData = useMemo(() => offersFavorite, [offersFavorite]);
+
+  const isFavorite = offersFavoriteData.some((item) => item.id === id);
 
   const reviewsData = useAppSelector(selectReviewsData);
   const reviews = useMemo(() => reviewsData, [reviewsData]);
@@ -54,11 +61,16 @@ const Offer: React.FC = () => {
   [id]);
 
   const handleFavouriteClick = useCallback(() => {
-    const pathOption = offerData!.id + offerData?.isFavorite ?
+    if (authorizationStatus !== AuthorizationStatus.Auth) {
+      navigate(AppRoute.Login);
+      return;
+    }
+    let pathOption = offerData!.id;
+    pathOption += isFavorite ?
       '/0' :
       '/1';
     dispatch(changeFavoriteOfferAction(pathOption));
-  }, [offerData]);
+  }, [offerData, authorizationStatus, isFavorite]);
 
   useEffect(() => {
     if (id) {
@@ -124,7 +136,7 @@ const Offer: React.FC = () => {
                         <h1 className="offer__name" data-testid="offer-title">
                           {offerData.title}
                         </h1>
-                        <button className={offerData.isFavorite ? 'offer__bookmark-button offer__bookmark-button--active button' : 'offer__bookmark-button button'} type="button" onClick={handleFavouriteClick} data-testid = 'favourite-button'>
+                        <button className={isFavorite ? 'offer__bookmark-button offer__bookmark-button--active button' : 'offer__bookmark-button button'} type="button" onClick={handleFavouriteClick} data-testid = 'favourite-button'>
                           <svg className="offer__bookmark-icon" width={31} height={33}>
                             <use xlinkHref="#icon-bookmark" />
                           </svg>

@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { useRef } from 'react';
 import {useMap} from './use-map';
 import { CityData } from '../types';
-import makeFakeCityData from '../mocks/makeFakeCityData';
+import makeFakeCityData from '../utils/makeFakeCityData';
 
 const fakeCityData = makeFakeCityData();
 

@@ -1,6 +1,6 @@
-import makeFakeAuthData from '../../mocks/makeFakeAuthData';
-import makeFakeOffer from '../../mocks/makeFakeOffer';
-import makeFakeUserData from '../../mocks/makeFakeUserData';
+import makeFakeAuthData from '../../utils/makeFakeAuthData';
+import makeFakeOffer from '../../utils/makeFakeOffer';
+import makeFakeUserData from '../../utils/makeFakeUserData';
 import { AuthorizationStatus } from '../../types';
 import { checkAuthorizationStatus, fetchFavoriteOffersAction, loginAction, logoutAction } from '../api-actions';
 import { setUserError, userReducer } from './userSlice';

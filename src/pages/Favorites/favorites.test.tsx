@@ -1,11 +1,11 @@
 import Favorites from './favorites';
-import { withStore, withHistory } from '../../mocks/mockComponents';
+import { withStore, withHistory } from '../../utils/mocks/mockcomponents';
 import { screen, render } from '@testing-library/react';
-import makeFakeOffer from '../../mocks/makeFakeOffer';
+import makeFakeOffer from '../../utils/makeFakeOffer';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import makeFakeUserData from '../../mocks/makeFakeUserData';
+import makeFakeUserData from '../../utils/makeFakeUserData';
 import { AuthorizationStatus, NameSpace } from '../../types/index';
-import { mockUserInitialState, SelectorFunction } from '../../mocks/mocks';
+import { mockUserInitialState, SelectorFunction } from '../../utils/mocks/mocks';
 
 vi.mock('../../hooks', () => ({
   useAppDispatch: vi.fn(),

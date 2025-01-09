@@ -4,6 +4,8 @@ import React, { FormEvent, useCallback, useRef, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { selectAuthStatus } from '../../store/user-slice/selectors';
+import { CITIES } from '../../types/cities';
+import { changeSelectedCity } from '../../store/offer-slice/offerSlice';
 
 const Login: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -13,6 +15,13 @@ const Login: React.FC = () => {
 
   const emailInput = useRef<HTMLInputElement>(null);
   const passwordInput = useRef<HTMLInputElement>(null);
+
+  const getRandomCity = () => {
+    const randomIndex = Math.floor(Math.random() * CITIES.length);
+    return CITIES[randomIndex];
+  };
+
+  const randomCity = getRandomCity();
 
   const handleSubmit = useCallback((evt: FormEvent) => {
     evt.preventDefault();
@@ -78,6 +87,13 @@ const Login: React.FC = () => {
                 Sign in
               </button>
             </form>
+          </section>
+          <section className="locations locations--login locations--current">
+            <div className="locations__item">
+              <Link className="locations__item-link" to={AppRoute.Main} onClick={() => dispatch(changeSelectedCity(randomCity))}>
+                <span>{randomCity.name}</span>
+              </Link>
+            </div>
           </section>
         </div>
       </main>

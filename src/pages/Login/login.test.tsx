@@ -2,7 +2,7 @@ import { describe, it, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import Login from './login';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { withHistory, withStore } from '../../mocks/mockComponents';
+import { withHistory, withStore } from '../../utils/mocks/mockComponents';
 
 vi.mock('../../hooks', () => ({
   useAppDispatch: vi.fn(),

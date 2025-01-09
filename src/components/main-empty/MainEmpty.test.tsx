@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import MainEmpty from './MainEmpty';
-import makeFakeCityData from '../../mocks/makeFakeCityData';
+import makeFakeCityData from '../../utils/makeFakeCityData';
 import { CityData } from '../../types';
 
 describe('Component: MainEmpty', () => {

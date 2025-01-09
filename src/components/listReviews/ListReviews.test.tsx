@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { ListReviews } from './ListReviews.tsx';
-import makeFakeReview from '../../mocks/makeFakeReviews.ts';
+import makeFakeReview from '../../utils/makeFakeReviews';
 
 describe('Component: ListReview', () => {
   it('should render correctly', () => {

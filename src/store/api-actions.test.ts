@@ -4,16 +4,16 @@ import thunk from 'redux-thunk';
 import { Action } from 'redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { NameSpace, State } from '../types';
-import { AppThunkDispatch, mockOfferInitialState, mockUserInitialState, extractActionsTypes } from '../mocks/mocks';
+import { AppThunkDispatch, mockOfferInitialState, mockUserInitialState, extractActionsTypes } from '../utils/mocks/mocks';
 import { changeFavoriteOfferAction, checkAuthorizationStatus, fetchFavoriteOffersAction, fetchNearOfferAction, fetchOfferAction, fetchOffersAction, fetchReviewAction, loginAction, logoutAction, postReviewAction } from './api-actions';
 import { APIRoute } from '../types/constant';
-import makeFakeUserData from '../mocks/makeFakeUserData';
-import makeFakeOffer from '../mocks/makeFakeOffer';
+import makeFakeUserData from '../utils/makeFakeUserData';
+import makeFakeOffer from '../utils/makeFakeOffer';
 import { datatype } from 'faker';
 import * as tokenStorage from '../services/token';
-import makeFakeReview from '../mocks/makeFakeReviews';
-import makeFakeNewReviewData from '../mocks/makeFakeNewReviewData';
-import makeFakeAuthData from '../mocks/makeFakeAuthData';
+import makeFakeReview from '../utils/makeFakeReviews';
+import makeFakeNewReviewData from '../utils/makeFakeNewReviewData';
+import makeFakeAuthData from '../utils/makeFakeAuthData';
 
 describe('Async actions', () => {
   const axios = createAPI();

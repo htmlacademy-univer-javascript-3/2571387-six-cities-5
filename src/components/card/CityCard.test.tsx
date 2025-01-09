@@ -2,10 +2,10 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { vi, describe, it, beforeEach, expect } from 'vitest';
 import CityCard from './CityCard';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import makeFakeOffer from '../../mocks/makeFakeOffer';
+import makeFakeOffer from '../../utils/makeFakeOffer';
 import { AuthorizationStatus, CardClassNameList, NameSpace } from '../../types';
-import { withHistory, withStore } from '../../mocks/mockComponents';
-import { mockOfferInitialState, mockUserInitialState, SelectorFunction } from '../../mocks/mocks';
+import { withHistory, withStore } from '../../utils/mocks/mockcomponents';
+import { mockOfferInitialState, mockUserInitialState, SelectorFunction } from '../../utils/mocks/mocks';
 
 vi.mock('../../hooks', () => ({
   useAppDispatch: vi.fn(),

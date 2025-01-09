@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import useFilter from './use-fiter';
 import { CityData, offerCard, SortName } from '../types';
-import makeFakeCityData from '../mocks/makeFakeCityData';
-import makeFakeOffer from '../mocks/makeFakeOffer';
+import makeFakeCityData from '../utils/makeFakeCityData';
+import makeFakeOffer from '../utils/makeFakeOffer';
 
 type TestComponentProps = {
   offers: offerCard[];

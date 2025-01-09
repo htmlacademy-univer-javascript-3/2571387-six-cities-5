@@ -40,6 +40,15 @@ const offerSlice = createSlice({
     },
     changeSelectedCity: (state, action: PayloadAction<CityData>) => {
       state.currentCity = action.payload;
+    },
+    clearOffer: (state) => {
+      state.offer = null;
+    },
+    clearReviews: (state) => {
+      state.reviews = [];
+    },
+    clearNearOffers: (state) => {
+      state.nearOffers = [];
     }
   },
   extraReducers: (builder) => {
@@ -101,4 +110,4 @@ const offerSlice = createSlice({
 
 export const offerReducer = offerSlice.reducer;
 
-export const { setOfferError, changeSelectedCity } = offerSlice.actions;
+export const { setOfferError, changeSelectedCity, clearReviews, clearNearOffers, clearOffer } = offerSlice.actions;
